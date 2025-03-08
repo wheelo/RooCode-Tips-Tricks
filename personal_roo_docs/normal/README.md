@@ -28,14 +28,3 @@ This directory contains practical guides for everyday Roo Code users. These docu
 | [Optimizing Context Usage](optimizing-context-usage.md) | Getting the most from Roo's memory | Advanced techniques for maximizing the efficiency of Roo's context window |
 | [Rooignore Configuration](rooignore-configuration.md) | Excluding files from Roo | How to use .rooignore files to control what files Roo can access |
 | [Task Management](task-management.md) | Organizing your conversations | Guide to managing multiple conversations and tasks with Roo |
-
-## Who Should Use These Guides
-
-These user-friendly guides are ideal for:
-- New users getting started with Roo Code
-- Users who want practical instructions without technical details
-- Anyone looking to understand what Roo can do and how to use specific features
-
-## Related Resources
-
-For more technical information about how these features work internally, see the corresponding documents in the [technical documentation](../technical/) directory.

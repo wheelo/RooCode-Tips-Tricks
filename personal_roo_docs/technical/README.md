@@ -28,25 +28,3 @@ This directory contains in-depth technical documentation explaining how Roo Code
 | [Optimizing Context Usage](optimizing-context-usage.md) | Context compression techniques | Technical details of algorithms used to optimize context window utilization |
 | [Rooignore Configuration](rooignore-configuration.md) | Gitignore-style pattern implementation | Explains how .rooignore patterns are parsed, cached, and applied to file operations |
 | [Task Management](task-management.md) | Conversation session architecture | Technical details of how Roo manages separate conversation sessions and their state |
-
-## Who Should Use This Documentation
-
-These technical documents are designed for:
-- Developers extending or customizing Roo Code
-- Contributors to the Roo Code project
-- Advanced users who want to understand internal implementation details
-- Those feeding technical information back to Roo for enhanced understanding of its own systems
-
-## Technical Implementation Patterns
-
-Throughout the documentation, you'll find these common implementation patterns:
-
-1. **Component Architecture**: Most systems use a modular component-based design
-2. **File-based Configuration**: Configuration is typically stored in files with specific formats
-3. **Prompt Engineering**: Many features involve sophisticated prompt construction techniques
-4. **Layered Validation**: Input validation occurs at multiple levels for security and reliability
-5. **Runtime Adaptation**: Systems dynamically adapt based on context and environment
-
-## Related Resources
-
-For more user-friendly guides on how to use these features without technical details, see the corresponding documents in the [normal documentation](../normal/) directory.
