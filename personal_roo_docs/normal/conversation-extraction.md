@@ -189,11 +189,3 @@ Task History Export includes several privacy features:
 | Formatting issues in export | Try a different export format or cleanup level |
 | Missing content | Use minimal cleanup to preserve more details |
 | Code blocks not formatted correctly | Ensure you're viewing the file with appropriate formatting support |
-
-## Coming Soon
-
-Future enhancements to Task History Export will include:
-- Custom export templates
-- Selective message exporting
-- Additional output formats
-- Automatic export scheduling
