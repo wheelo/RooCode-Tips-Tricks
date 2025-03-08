@@ -1,53 +1,41 @@
-# Roo-Code User Guide
+# Roo Code: User-Friendly Documentation
 
-Welcome to the Roo-Code user guide! This section contains straightforward, user-friendly documentation that explains how to use Roo-Code's features without diving into technical implementation details.
+This directory contains practical guides for everyday Roo Code users. These documents focus on how to use Roo's features without diving into technical implementation details.
 
 ## Available Guides
 
-### [Experimental Features](experimental-features.md)
-Learn about cutting-edge features you can try in Roo-Code before they become standard. Find out what each experimental feature does, when to use it, and what benefits it provides.
+### Core Features
 
-### [MCP Server Integration](mcp-server-integration.md)
-Understand how Roo-Code can connect to external tools and data sources through MCP servers. This guide explains what MCP servers are, how to use them, and common types of servers you might encounter.
+| Document | Description | Purpose |
+|----------|-------------|---------|
+| [Browser Automation](browser-automation.md) | Guide to Roo's browser control capabilities | Learn how to make Roo interact with websites, fill forms, and capture screenshots |
+| [Checkpoint System](checkpoint-system.md) | Using Roo's workspace state tracking | Discover how to use checkpoints to track changes and restore previous workspace states |
+| [Context Mentions](context-mentions.md) | How Roo references specific content | Understand how Roo can reference specific parts of code or text in conversations |
+| [Conversation Extraction](conversation-extraction.md) | Exporting your chat history | Learn how to save, share, and reuse your conversations with Roo |
+| [Custom Modes](custom-modes.md) | Creating specialized AI behaviors | Guide to creating custom modes for different roles and tasks |
+| [Custom Rules](custom-rules.md) | Setting rules for Roo's behavior | Learn how to guide Roo's actions with project-specific rules |
+| [Custom System Prompts](custom-system-prompts.md) | Customizing Roo's core behavior | Understand how to modify Roo's fundamental behavior with system prompts |
+| [Experimental Features](experimental-features.md) | New features in development | Explore cutting-edge features being developed for Roo |
 
-### [Context Mentions](context-mentions.md)
-Discover how to use the @mention system to reference files, Git commits, problems, and terminal output in your conversations with Roo. Learn best practices for effective mentions that help Roo understand your project.
+### Advanced Features
 
-### [Custom Rules](custom-rules.md)
-Learn how to create rule files that guide Roo's behavior when working with your projects. Find out how to establish coding standards, testing requirements, and other guidelines that Roo will follow.
+| Document | Description | Purpose |
+|----------|-------------|---------|
+| [File Filtering](file-filtering.md) | Controlling which files Roo can see | Learn how to selectively include or exclude files from Roo's visibility |
+| [Managing Context Window](managing-context-window.md) | Optimizing Roo's memory | Practical tips for managing what Roo remembers during conversations |
+| [Managing Preferences](managing-preferences.md) | Configuring Roo's behavior | Guide to adjusting settings to customize how Roo operates |
+| [MCP Server Integration](mcp-server-integration.md) | Connecting Roo to external tools | Learn how to extend Roo's capabilities with Model Context Protocol servers |
+| [Optimizing Context Usage](optimizing-context-usage.md) | Getting the most from Roo's memory | Advanced techniques for maximizing the efficiency of Roo's context window |
+| [Rooignore Configuration](rooignore-configuration.md) | Excluding files from Roo | How to use .rooignore files to control what files Roo can access |
+| [Task Management](task-management.md) | Organizing your conversations | Guide to managing multiple conversations and tasks with Roo |
 
-### [File Filtering](file-filtering.md)
-Understand how Roo determines which files to include or exclude when working with your projects. Learn about size limits, binary detection, and strategies for effective filtering.
+## Who Should Use These Guides
 
-### [.rooignore Configuration](rooignore-configuration.md)
-Learn how to use .rooignore files to control which files Roo can see and work with. Find out how to exclude sensitive files, reduce noise, and focus Roo's attention on what matters.
+These user-friendly guides are ideal for:
+- New users getting started with Roo Code
+- Users who want practical instructions without technical details
+- Anyone looking to understand what Roo can do and how to use specific features
 
-### [Managing Preferences](managing-preferences.md)
-Explore all the ways you can customize Roo-Code through settings and preferences. Find out how to adjust appearance, behavior, performance, and security settings to suit your workflow.
+## Related Resources
 
-### [Managing Context Window](managing-context-window.md)
-Understand how to optimize Roo's "working memory" (context window) to get the most out of your conversations. Learn about settings that affect context usage and strategies for efficient interactions.
-
-### [Optimizing Context Usage](optimizing-context-usage.md)
-Learn practical techniques to get the most out of Roo by optimizing its context usage. Discover how to reduce unnecessary content, filter files effectively, and use settings that maximize Roo's available memory.
-
-### [Task Management](task-management.md)
-Learn how to use Roo's task system to organize different conversations and work on multiple projects. Find out how to create, manage, and switch between tasks for better productivity.
-
-### [Browser Automation](browser-automation.md)
-Discover how to use Roo's browser capabilities to interact with websites and web applications. Learn how Roo can navigate, click, type, and scroll through web content to help you test and use web interfaces.
-
-### [Export Task History](conversation-extraction.md)
-Learn how to save, share, and reuse your conversations with Roo using the task history export feature. Discover different export formats, cleanup options, and best practices for managing your conversation history.
-
-### [Using Checkpoints](checkpoint-system.md)
-Discover how to use Roo's checkpoint system to track changes to your workspace, restore previous states, and view what changed between saves. Learn best practices for using checkpoints effectively in your workflow.
-
-## Who This Guide Is For
-
-This user-friendly documentation is designed for:
-- New users of Roo-Code
-- Users who want to learn about features without technical details
-- Anyone looking for practical guidance on using Roo-Code effectively
-
-For detailed technical documentation including implementation details, please see the [technical documentation](../technical/).
+For more technical information about how these features work internally, see the corresponding documents in the [technical documentation](../technical/) directory.
