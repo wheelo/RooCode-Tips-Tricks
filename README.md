@@ -8,6 +8,15 @@ A comprehensive collection of documentation resources for Roo Code, organized by
 - **[User-Friendly Guides](personal_roo_docs/normal/)**: Practical guides for everyday Roo Code users covering features, customization, and best practices without technical complexity. Use these to understand what's going on to decide if you need to feed a technical doc into the llm for some purpose.
 - **[Technical Documentation](personal_roo_docs/technical/)**: In-depth technical documentation for developers and advanced users who want to understand implementation details. The original goal of these were to create technical documents that could be fed back into Roo for it to understand subsystems. It works pretty well.
 
+## [Roo-Ignore Generator](roo-ignore/README.md)
+A smart utility script that generates and updates `.rooignore` files to prevent LLM context overflow. The script:
+
+- Focuses primarily on identifying large files exceeding token limits
+- Preserves existing .rooignore content and custom patterns
+- Skips scanning large directories for efficiency
+- Requires no external dependencies (pure Node.js)
+
+
 ## [Handoff Manager](handoff-manager/docs/handoff-system.md)
 **Solve the context window overload problem once and for all.**
 
@@ -36,7 +45,6 @@ During extended debugging sessions, it may feel frustrating to start over with a
 
 ## [Large File Handling Cheatsheet](cheatsheets/llm-large-file-cheatsheet.md)
 A practical cheatsheet of one-liners and code snippets in Python, Bash, Node.js, and PowerShell for handling large files that would normally exceed LLM context windows. Extract exactly what you need without overwhelming your LLM. This file is designed to be given to the LLM as a reference and to remind it how to do some things.
-
 
 ## [RooArmy](roo-army/)
 A sophisticated system for creating and managing professional custom modes in Roo AI Assistant. RooArmy transforms Roo from a general-purpose assistant into a collection of specialized assistants for specific software development roles, with an intelligent assessment system that recommends the optimal configuration for your project.
