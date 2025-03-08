@@ -8,8 +8,8 @@ A comprehensive collection of documentation resources for Roo Code, organized by
 - **[User-Friendly Guides](personal_roo_docs/normal/)**: Practical guides for everyday Roo Code users covering features, customization, and best practices without technical complexity. Use these to understand what's going on to decide if you need to feed a technical doc into the llm for some purpose.
 - **[Technical Documentation](personal_roo_docs/technical/)**: In-depth technical documentation for developers and advanced users who want to understand implementation details. The original goal of these were to create technical documents that could be fed back into Roo for it to understand subsystems. It works pretty well.
 
-## [Roo-Ignore Generator](roo-ignore/README.md)
-A smart utility script that generates and updates `.rooignore` files to prevent LLM context overflow. The script:
+## [.rooignore  Generator](roo-ignore/README.md)
+A simple utility script that generates and updates `.rooignore` files to prevent LLM context overflow. The script:
 
 - Focuses primarily on identifying large files exceeding token limits
 - Preserves existing .rooignore content and custom patterns
