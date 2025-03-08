@@ -30,15 +30,15 @@ During extended debugging sessions, it may feel frustrating to start over with a
    - For a **simple installation** using the automated installer script, follow the [basic installation guide](handoff-manager/docs/basic-installation.md)
    - For a **manual installation** with full customization, follow the [advanced installation guide](handoff-manager/docs/advanced-installation.md)
 3. For **usage instructions** after installation, refer to the [usage guide](handoff-manager/docs/usage-guide.md)
-4. For **custom mode integration**, refer to [custom modes documentation](cheatsheets/custom-modes-llm-instruction.md)
+4. For **custom mode integration**, refer to [custom modes documentation](personal_roo_docs/technical/custom-modes.md)
 
 **Compatibility Note:** Optimized for Claude 3 models with thinking enabled
 
 ### [Large File Handling Cheatsheet](cheatsheets/llm-large-file-cheatsheet.md)
 A practical cheatsheet of one-liners and code snippets in Python, Bash, Node.js, and PowerShell for handling large files that would normally exceed LLM context windows. Extract exactly what you need without overwhelming your LLM. This file is designed to be given to the LLM as a reference and to remind it how to do some things.
 
-### [Custom Modes LLM Instructions](cheatsheets/custom-modes-llm-instruction.md)
-Unlock the full potential of Roo Code's custom modes system with this detailed guide covering data structures, tool groups, file restrictions, and best practices with practical examples. This file is designed to be given to the LLM to create your own specific custom modes.
+### [Custom Modes Documentation](personal_roo_docs/technical/custom-modes.md)
+Unlock the full potential of Roo Code's custom modes system with this comprehensive technical guide covering implementation details, data structures, tool groups, file restrictions, and best practices with practical examples.
 
 ### [RooArmy](roo-army/)
 A sophisticated system for creating and managing professional custom modes in Roo AI Assistant. RooArmy transforms Roo from a general-purpose assistant into a collection of specialized assistants for specific software development roles, with an intelligent assessment system that recommends the optimal configuration for your project.
@@ -58,7 +58,6 @@ We've organized several supplementary resources to enhance your Roo Code experie
 ### Cheatsheets
 
 Resources in the [cheatsheets](cheatsheets/) directory:
-- **[Custom Modes LLM Instructions](cheatsheets/custom-modes-llm-instruction.md)**: Create specialized modes
 - **[Large File Handling](cheatsheets/llm-large-file-cheatsheet.md)**: Handle files that exceed context windows
 
 ### Handoff System Components
