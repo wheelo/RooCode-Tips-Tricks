@@ -22,6 +22,36 @@ Technical details of the settings storage architecture, state management, and co
 ### [Managing Context Window](managing-context-window.md)
 Technical analysis of context window components, sliding window implementation, and configuration options that affect token usage.
 
+### [Optimizing Context Usage](optimizing-context-usage.md)
+Comprehensive technical guide to context optimization techniques in Roo-Code, including system prompt construction, sliding window implementation, file filtering, and advanced optimization strategies.
+
+### [Theoretical Sliding Window Enhancement](theoretical-sliding-window-enhancement.md)
+Theoretical proposal for enhancing Roo-Code's sliding window implementation with content-aware compression inspired by the handoff system's conversation extraction techniques.
+
+### [Conversation Extraction](conversation-extraction.md)
+Technical documentation of Roo-Code's task history export feature, including implementation details of the conversation extraction pipeline, pattern-based content filtering, and the export API.
+
+### [Checkpoint System](checkpoint-system.md)
+Technical documentation of Roo-Code's Git-based checkpoint mechanism for tracking workspace state during tasks, including implementation details of shadow repositories, automatic checkpoint creation, and restoration capabilities.
+
+### [Theoretical Improvements](../theoretical)
+Collection of theoretical enhancements to Roo-Code, including improvements to the sliding window implementation and conversation history export functionality.
+
+### [Custom System Prompts](custom-system-prompts.md)
+Deep dive into the custom system prompts feature that allows complete replacement of the default system prompt with your own instructions and capabilities.
+
+### [Task Management](task-management.md)
+Technical implementation of the task management system including task creation, lifecycle, and the new_task tool integration with different modes.
+
+### [File Filtering](file-filtering.md)
+Detailed explanation of file filtering capabilities including workspace exclusions and integration with version control systems.
+
+### [.rooignore Configuration](rooignore-configuration.md)
+Comprehensive technical guide to the .rooignore system including pattern syntax, implementation, and advanced usage patterns. Covers default ignore patterns and integration with version control.
+
+### [Browser Automation](browser-automation.md)
+Technical implementation of the browser automation system, including Puppeteer integration, command flow, screenshot capture, and security considerations.
+
 ## Intended Audience
 
 This technical documentation is designed for:

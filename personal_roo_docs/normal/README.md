@@ -16,11 +16,32 @@ Discover how to use the @mention system to reference files, Git commits, problem
 ### [Custom Rules](custom-rules.md)
 Learn how to create rule files that guide Roo's behavior when working with your projects. Find out how to establish coding standards, testing requirements, and other guidelines that Roo will follow.
 
+### [File Filtering](file-filtering.md)
+Understand how Roo determines which files to include or exclude when working with your projects. Learn about size limits, binary detection, and strategies for effective filtering.
+
+### [.rooignore Configuration](rooignore-configuration.md)
+Learn how to use .rooignore files to control which files Roo can see and work with. Find out how to exclude sensitive files, reduce noise, and focus Roo's attention on what matters.
+
 ### [Managing Preferences](managing-preferences.md)
 Explore all the ways you can customize Roo-Code through settings and preferences. Find out how to adjust appearance, behavior, performance, and security settings to suit your workflow.
 
 ### [Managing Context Window](managing-context-window.md)
 Understand how to optimize Roo's "working memory" (context window) to get the most out of your conversations. Learn about settings that affect context usage and strategies for efficient interactions.
+
+### [Optimizing Context Usage](optimizing-context-usage.md)
+Learn practical techniques to get the most out of Roo by optimizing its context usage. Discover how to reduce unnecessary content, filter files effectively, and use settings that maximize Roo's available memory.
+
+### [Task Management](task-management.md)
+Learn how to use Roo's task system to organize different conversations and work on multiple projects. Find out how to create, manage, and switch between tasks for better productivity.
+
+### [Browser Automation](browser-automation.md)
+Discover how to use Roo's browser capabilities to interact with websites and web applications. Learn how Roo can navigate, click, type, and scroll through web content to help you test and use web interfaces.
+
+### [Export Task History](conversation-extraction.md)
+Learn how to save, share, and reuse your conversations with Roo using the task history export feature. Discover different export formats, cleanup options, and best practices for managing your conversation history.
+
+### [Using Checkpoints](checkpoint-system.md)
+Discover how to use Roo's checkpoint system to track changes to your workspace, restore previous states, and view what changed between saves. Learn best practices for using checkpoints effectively in your workflow.
 
 ## Who This Guide Is For
 

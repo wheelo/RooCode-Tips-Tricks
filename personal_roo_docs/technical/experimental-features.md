@@ -15,6 +15,7 @@ export const EXPERIMENT_IDS = {
   SEARCH_AND_REPLACE: "search_and_replace",
   INSERT_BLOCK: "insert_content",
   POWER_STEERING: "powerSteering",
+  MULTI_SEARCH_AND_REPLACE: "multi_search_and_replace",
 } as const
 
 // Each experiment has a configuration
@@ -296,6 +297,124 @@ Power Steering is most beneficial for:
 - Regulated domains with compliance requirements
 - Situations where deviation from instructions would be problematic
 
+## 5. Multi-Block Search and Replace
+
+**ID**: `multi_search_and_replace`
+
+### Implementation Details
+
+The Multi-Block Search and Replace feature extends the capabilities of the standard search and replace functionality by allowing multiple code blocks to be updated in a single operation. This is particularly valuable for making consistent changes across different parts of a file.
+
+#### Key Technical Components:
+
+1. **Block Identification**: Identifies multiple distinct blocks within a file that need changes
+2. **Parallel Processing**: Processes multiple search/replace operations simultaneously
+3. **Change Coordination**: Ensures changes don't conflict with each other
+4. **Context Preservation**: Maintains proper context around each modified block
+
+```typescript
+// Implementation example for processing multiple blocks
+function processMultipleBlocks(
+  originalContent: string,
+  blocks: SearchReplaceBlock[]
+): { content: string; changes: ChangeDetails[] } {
+  // Sort blocks by position to process from bottom to top
+  // (avoids offset issues when multiple blocks change)
+  const sortedBlocks = [...blocks].sort((a, b) =>
+    b.startLine - a.startLine
+  )
+  
+  let content = originalContent
+  const changes = []
+  
+  // Process each block independently
+  for (const block of sortedBlocks) {
+    const result = processSearchReplaceBlock(content, block)
+    content = result.content
+    changes.push(result.change)
+  }
+  
+  return { content, changes }
+}
+```
+
+#### Features:
+
+- **Consistent Updates**: Apply the same pattern changes across multiple locations
+- **Bulk Operations**: Apply different changes to multiple blocks in one operation
+- **Conflict Resolution**: Smart handling of potentially overlapping changes
+- **Atomic Updates**: All changes succeed or fail together, preventing partial updates
+
+#### Performance Characteristics:
+
+- Reduces the number of separate operations needed for multi-block files
+- Typically 2-3x faster than applying individual changes for files with multiple change points
+- More deterministic results compared to sequential modifications
+
+### Technical Considerations
+
+1. **Block Ordering**: Changes are applied from bottom to top to preserve line numbering:
+
+   ```typescript
+   // Sort to process changes from bottom to top
+   blocks.sort((a, b) => b.startPosition - a.startPosition)
+   ```
+
+2. **Conflict Detection**: The system detects and prevents conflicting changes:
+
+   ```typescript
+   function detectConflicts(blocks: SearchReplaceBlock[]): boolean {
+     // Check for overlapping blocks
+     for (let i = 0; i < blocks.length; i++) {
+       for (let j = i + 1; j < blocks.length; j++) {
+         if (blocksOverlap(blocks[i], blocks[j])) {
+           return true
+         }
+       }
+     }
+     return false
+   }
+   ```
+
+3. **Error Handling**: If any block fails to apply, the entire operation is rolled back:
+
+   ```typescript
+   try {
+     // Process all blocks
+     for (const block of blocks) {
+       applyChange(block)
+     }
+     commitChanges()
+   } catch (error) {
+     rollbackChanges()
+     throw new MultiBlockError("Failed to apply multi-block changes", error)
+   }
+   ```
+
+### Usage in the System
+
+The multi-block tool provides a more powerful interface for complex file modifications:
+
+```
+<search_and_replace>
+<path>src/component.tsx</path>
+<operations>[
+  {
+    "search": "function Component() {",
+    "replace": "function Component(props: ComponentProps) {",
+    "start_line": 10,
+    "end_line": 10
+  },
+  {
+    "search": "return <div>",
+    "replace": "return <div className={props.className}>",
+    "start_line": 15,
+    "end_line": 15
+  }
+]</operations>
+</search_and_replace>
+```
+
 ## Technical Implementation of Feature Flags
 
 The experiment system uses a combination of runtime checks and configuration persistence:
@@ -320,6 +439,7 @@ The experiment system uses a combination of runtime checks and configuration per
 | Search and Replace | Medium | Low | Low |
 | Insert Content | Low | Low | Low |
 | Power Steering | Low | Low | High |
+| Multi-Block Search and Replace | Medium | Medium | Low |
 
 ## Error Handling and Diagnostics
 
@@ -385,7 +505,6 @@ if (filePath.endsWith('.ts') &&
 ```
 
 ## Best Practices for Experimental Features
-
 ### When to Enable
 
 1. **Unified Diff Strategy**: Enable when working with large files or complex code changes that require precise matching. Most beneficial for refactoring operations affecting multiple areas of a file.
@@ -394,6 +513,9 @@ if (filePath.endsWith('.ts') &&
 
 3. **Insert Content**: Enable when adding new functions, methods, imports, or documentation blocks to files without modifying existing content. Particularly useful for codebase extension.
 
+4. **Power Steering**: Enable when working on tasks that require strict adherence to guidelines, such as regulated code, security-sensitive implementations, or team projects with strict conventions.
+
+5. **Multi-Block Search and Replace**: Enable when performing refactorings that require coordinated changes to multiple parts of a file. Especially valuable for updating component signatures, changing function parameters, or implementing consistent API changes throughout a file.
 4. **Power Steering**: Enable when working on tasks that require strict adherence to guidelines, such as regulated code, security-sensitive implementations, or team projects with strict conventions.
 
 ### Testing Approach
@@ -424,7 +546,8 @@ Current development priorities:
 1. **Unified Diff Strategy 2.0**: Enhanced context recognition and improved performance
 2. **Insert Content Extensions**: Template-based insertions and smart positioning
 3. **Multi-File Search and Replace**: Apply consistent changes across multiple files
-4. **Adaptive Power Steering**: Context-aware instruction emphasis
+4. **Multi-Block Search and Replace Enhancements**: Improved conflict resolution and visual diffing
+5. **Adaptive Power Steering**: Context-aware instruction emphasis
 
 ## Conclusion
 

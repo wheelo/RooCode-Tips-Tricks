@@ -30,13 +30,18 @@ This function scans the project root directory for any of the supported rule fil
 
 ### Rule Application Hierarchy
 
-Rules are applied in a specific order, with mode-specific rules taking precedence over global rules:
+Rules are applied in a specific order, with a clear priority sequence to ensure proper precedence:
 
 ```typescript
 // Add mode-specific rules first if they exist
 if (modeRuleContent && modeRuleContent.trim()) {
   const modeRuleFile = `.clinerules-${mode}`
   rules.push(`# Rules from ${modeRuleFile}:\n${modeRuleContent}`)
+}
+
+// Add .rooignore instructions if provided
+if (options.rooIgnoreInstructions) {
+  rules.push(options.rooIgnoreInstructions)
 }
 
 // Add generic rules

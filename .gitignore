@@ -1,4 +1,5 @@
 ignored/
-handoff-system/deprecated/
+/deprecated/
 roo-army/
 roo-army/roo-army-test/
+.obsidian

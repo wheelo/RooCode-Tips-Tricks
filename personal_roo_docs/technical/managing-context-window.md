@@ -35,6 +35,7 @@ Understanding how each component contributes to context usage helps you make inf
 | Unified Diff Strategy | `experimentalDiffStrategy` | Alternative approach to handling file modifications | Moderate impact; may use more context for diff explanations |
 | Search and Replace | `search_and_replace` | Performs multiple search/replace operations at once | Minor impact; may require additional context for complex operations |
 | Insert Content | `insert_content` | Inserts content at specific line positions | Minor impact; may require additional context to describe insertions |
+| Multi-Block Search and Replace | `multi_search_and_replace` | Updates multiple blocks in a file in a single operation | Moderate impact; requires additional context for coordinating multiple changes |
 
 ### Permission Settings
 

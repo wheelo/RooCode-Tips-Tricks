@@ -11,43 +11,82 @@ The context mention system in Roo-Code provides a powerful mechanism for referen
 The cornerstone of the mention system is a sophisticated regular expression pattern defined in `src/shared/context-mentions.ts`:
 
 ```typescript
-export const mentionRegex =
-  /@((?:\/|\w+:\/\/)[^\s]+?|[a-f0-9]{7,40}\b|problems\b|git-changes\b|terminal\b)(?=[.,;:!?]?(?=[\s\r\n]|$))/
-export const mentionRegexGlobal = new RegExp(mentionRegex.source, "g")
+const mentionPatterns = [
+  // Unix paths with escaped spaces using backslash
+  "(?:\\/|^)(?:[^\\/\\s\\\\]|\\\\[ \\t])+(?:\\/(?:[^\\/\\s\\\\]|\\\\[ \\t])+)*\\/?",
+  // Windows paths with drive letters (C:\path) with support for escaped spaces
+  "[A-Za-z]:\\\\(?:(?:[^\\\\\\s/]+|\\/[ ])+(?:\\\\(?:[^\\\\\\s/]+|\\/[ ])+)*)?",
+  // Windows relative paths (folder\file or .\folder\file) with support for escaped spaces
+  "(?:\\.{0,2}|[^\\\\\\s/]+)\\\\(?:[^\\\\\\s/]+|\\\\[ \\t]|\\/[ ])+(?:\\\\(?:[^\\\\\\s/]+|\\\\[ \\t]|\\/[ ])+)*\\\\?",
+  // Windows network shares (\\server\share) with support for escaped spaces
+  "\\\\\\\\[^\\\\\\s]+(?:\\\\(?:[^\\\\\\s/]+|\\/[ ])+)*(?:\\\\)?",
+  // URLs with protocols (http://, https://, etc.)
+  "\\w+:\/\/[^\\s]+",
+  // Git hashes (7-40 alphanumeric characters)
+  "[a-zA-Z0-9]{7,40}\\b",
+  // Special keywords
+  "problems\\b",
+  "git-changes\\b",
+  "terminal\\b",
+]
+// Build the full regex pattern by joining the patterns with OR operator
+const mentionRegexPattern = `@(${mentionPatterns.join("|")})(?=[.,;:!?]?(?=[\\s\\r\\n]|$))`
+export const mentionRegex = new RegExp(mentionRegexPattern)
+export const mentionRegexGlobal = new RegExp(mentionRegexPattern, "g")
 ```
 
-This pattern is designed to match several types of mentions:
+This pattern is designed to match several types of mentions with advanced support for various path formats:
 
-1. **File/Path Mentions**: Starting with `/` followed by a path
-2. **URL Mentions**: Following the format `protocol://path`
-3. **Git Commit Hashes**: 7-40 hexadecimal characters
-4. **Special Keywords**: `problems`, `git-changes`, `terminal`
+1. **Unix/Linux Paths**: Starting with `/` and supporting escaped spaces
+2. **Windows Paths**: Supporting drive letters, relative paths, and network shares with escaped spaces
+3. **URL Mentions**: Following the format `protocol://path`
+4. **Git Commit Hashes**: 7-40 alphanumeric characters
+5. **Special Keywords**: `problems`, `git-changes`, `terminal`
 
 The pattern also includes a sophisticated lookahead to ensure punctuation following a mention isn't included in the match.
 
 ### Regex Component Breakdown
 
+The regex is built from multiple patterns to handle various operating systems and path formats:
+
 ```
-/@                         # Match the @ symbol at the start
-(                          # Start capturing group
-  (?:\/|\w+:\/\/)          # Match either a slash or a protocol (word characters followed by ://)
-  [^\s]+?                  # Match one or more non-whitespace characters (non-greedy)
-  |                        # OR
-  [a-f0-9]{7,40}\b         # Match 7-40 hex characters (git hash) followed by word boundary
-  |                        # OR
-  problems\b               # Match the exact word "problems"
-  |                        # OR
-  git-changes\b            # Match the exact word "git-changes"
-  |                        # OR
-  terminal\b               # Match the exact word "terminal"
-)                          # End capturing group
-(?=                        # Positive lookahead - ensure what follows matches without including in result
-  [.,;:!?]?                # Optional punctuation character
-  (?=                      # Nested positive lookahead
-    [\s\r\n]|$             # Ensure followed by whitespace, line break, or end of string
-  )
-)/
+// Complete regex pattern breakdown
+/@(                           # Start with @ symbol and begin capturing group
+  (?:\/|^)                    # Unix path: Starts with slash or beginning of line
+    (?:[^\/\s\\]|\\[ \t])+    # Path segment with support for escaped spaces
+    (?:\/(?:[^\/\s\\]|\\[ \t])+)*  # Additional path segments
+    \/?                       # Optional trailing slash
+  |
+  [A-Za-z]:\\                 # Windows drive path: Drive letter followed by :\
+    (?:(?:[^\\s/]+|\/[ ])+    # Path segment with spaces escaped with forward slash
+    (?:\\(?:[^\\s/]+|\/[ ])+)*)?  # Additional path segments
+  |
+  (?:\.{0,2}|[^\\s/]+)\\      # Windows relative path: Starting with ., .., or folder name
+    (?:[^\\s/]+|\\[ \t]|\/[ ])+ # Path segment with various space escaping methods
+    (?:\\(?:[^\\s/]+|\\[ \t]|\/[ ])+)*  # Additional path segments
+    \\?                       # Optional trailing backslash
+  |
+  \\\\[^\\s]+                 # Windows network share: \\server
+    (?:\\(?:[^\\s/]+|\/[ ])+)*  # Share and additional path components
+    (?:\\)?                   # Optional trailing backslash
+  |
+  \w+:\/\/[^\s]+              # URL: protocol:// followed by content
+  |
+  [a-zA-Z0-9]{7,40}\b         # Git hash: 7-40 alphanumeric characters
+  |
+  problems\b                  # Keyword: problems
+  |
+  git-changes\b               # Keyword: git-changes
+  |
+  terminal\b                  # Keyword: terminal
+)                             # End capturing group
+(?=                           # Positive lookahead for termination
+  [.,;:!?]?                   # Optional punctuation
+  (?=[\s\r\n]|$)              # Followed by whitespace or end of string
+)
 ```
+
+This sophisticated pattern ensures paths are correctly matched across operating systems, handles escaped spaces in different formats, and includes advanced features like network shares and relative paths.
 
 ### Mention Types and Data Structures
 

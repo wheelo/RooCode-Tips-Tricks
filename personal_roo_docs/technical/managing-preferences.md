@@ -104,6 +104,7 @@ These settings control experimental features:
 | `search_and_replace` | Boolean | Enable search/replace tool | Enables new tool |
 | `insert_content` | Boolean | Enable insert content tool | Enables new tool |
 | `powerSteering` | Boolean | Enhanced role adherence | Affects prompting |
+| `multi_search_and_replace` | Boolean | Enable multi-block search/replace | Enables advanced tool |
 
 ## Technical Implementation Details
 
@@ -125,6 +126,7 @@ export interface ExtensionState {
   search_and_replace: boolean
   insert_content: boolean
   powerSteering: boolean
+  multi_search_and_replace: boolean
   
   // UI preferences
   showLineNumbers: boolean
@@ -150,6 +152,7 @@ export type WebviewMessage =
   | { type: "search_and_replace"; bool: boolean }
   | { type: "insert_content"; bool: boolean }
   | { type: "powerSteering"; bool: boolean }
+  | { type: "multi_search_and_replace"; bool: boolean }
   | { type: "showLineNumbers"; bool: boolean }
   | { type: "useMarkdownFormatting"; bool: boolean }
   | { type: "showTokenCount"; bool: boolean }

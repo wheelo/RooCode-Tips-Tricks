@@ -79,6 +79,26 @@ Experimental features are new capabilities in Roo-Code that are still being refi
 - Uses more of your available context space
 - May produce more detailed but slightly slower responses
 
+### 5. Multi-Block Search and Replace
+
+**What it does**: Allows Roo to update multiple code blocks in a file in a single operation. This makes coordinated changes across different parts of a file much easier.
+
+**When to use it**: Enable this feature when:
+- Changing function signatures that appear in multiple places
+- Updating component props throughout a file
+- Making coordinated changes that need to happen together
+- Refactoring code that has multiple related sections
+
+**Benefits**:
+- Make consistent changes across different parts of a file
+- Ensure related changes happen together
+- Save time compared to multiple separate operations
+- Prevent partial updates that could break your code
+
+**Things to watch for**:
+- More complex operations require clear instructions
+- Review changes carefully before accepting them
+
 ## How to Enable Experimental Features
 
 You can enable these features through the Roo-Code settings:
@@ -103,6 +123,7 @@ Some features work particularly well together:
 
 - Use Unified Diff Strategy with Power Steering for precise refactoring
 - Combine Search and Replace with Insert Content for comprehensive codebase updates
+- Use Multi-Block Search and Replace with Unified Diff Strategy for complex refactoring
 
 ### Project-Specific Configuration
 
@@ -114,7 +135,8 @@ You can configure experimental features per project by adding to your `.vscode/s
     "experimentalDiffStrategy": true,
     "insert_content": true,
     "search_and_replace": false,
-    "powerSteering": false
+    "powerSteering": false,
+    "multi_search_and_replace": true
   }
 }
 ```
