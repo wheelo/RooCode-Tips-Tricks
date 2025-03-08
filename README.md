@@ -46,7 +46,7 @@ During extended debugging sessions, it may feel frustrating to start over with a
 ## [Large File Handling Cheatsheet](cheatsheets/llm-large-file-cheatsheet.md)
 A practical cheatsheet of one-liners and code snippets in Python, Bash, Node.js, and PowerShell for handling large files that would normally exceed LLM context windows. Extract exactly what you need without overwhelming your LLM. This file is designed to be given to the LLM as a reference and to remind it how to do some things.
 
-## [RooArmy](roo-army/)
+## [RooArmy - **A fun project, not a useable system** ](roo-army/) 
 A sophisticated system for creating and managing professional custom modes in Roo AI Assistant. RooArmy transforms Roo from a general-purpose assistant into a collection of specialized assistants for specific software development roles, with an intelligent assessment system that recommends the optimal configuration for your project.
 
 
