@@ -12,12 +12,19 @@ This ensures Roo-Code's LLM can operate efficiently without context overflow iss
 
 ## Installation
 
-Generally you want to put this file in hte project root and run it. If you are using bash you can use wget
+Generally you want to put this file in the project root and run it. If you are using bash you can use wget
 ```bash
+wget https://raw.githubusercontent.com/Michaelzag/RooCode-Tips-Tricks/main/roo-ignore/generate-rooignore.js
+```
+then:
 
+```bash
+node generate-rooignore.js node generate-rooignore.js --threshold=30000
 ```
 
-## Usage
+if it doensm't work you might need to chmod +x
+
+## Advanced Usage
 
 ```bash
 node generate-rooignore.js [directory] [--threshold=NUMBER]
@@ -55,7 +62,7 @@ The script uses a simple estimation method:
 
 ### Smart Skipping for Efficient Scanning
 
-- Skips only essential directories like `.git` and `node_modules` during scanning
+- Skips only essential directories like `.git`, `venv`,  `node_modules` during scanning. There should be no readon the llm should be accessing these folders anyhow. 
 - Uses insights from .gitignore to identify additional directories to skip
 - Only skips directories when scanning, not in the final ignore patterns
 
