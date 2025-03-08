@@ -22,15 +22,6 @@ In-depth technical documentation explaining implementation details, architecture
 - Technical users who want to understand implementation details
 - Contributors to the Roo Code project
 
-### [Theoretical Documentation](theoretical/) (not included in Git)
-
-Advanced proposals and theoretical improvements for future development. These documents explore potential enhancements to Roo Code's architecture and algorithms.
-
-**Ideal for:**
-- Core developers considering future enhancements
-- Algorithm specialists interested in optimization techniques
-- Research-oriented exploration of AI assistant capabilities
-
 ## Document Inventory
 
 ### Core Features
@@ -52,15 +43,6 @@ Advanced proposals and theoretical improvements for future development. These do
 | **[Optimizing Context Usage](normal/optimizing-context-usage.md)** | [User Guide](normal/optimizing-context-usage.md) | [Technical](technical/optimizing-context-usage.md) | Advanced techniques for maximizing Roo's context window efficiency |
 | **[Rooignore Configuration](normal/rooignore-configuration.md)** | [User Guide](normal/rooignore-configuration.md) | [Technical](technical/rooignore-configuration.md) | Shows how to exclude files from Roo's visibility using .rooignore files |
 | **[Task Management](normal/task-management.md)** | [User Guide](normal/task-management.md) | [Technical](technical/task-management.md) | Explains how to organize different conversations and tasks with Roo |
-
-### Theoretical Improvements
-
-*Note: These documents are excluded from Git and represent potential future enhancements.*
-
-| Topic | Description | Purpose |
-|-------|-------------|---------|
-| **[Sliding Window Enhancement](theoretical/sliding-window-enhancement.md)** | Proposal for a content-aware sliding window | Explores an algorithm for intelligent context compression based on content relevance |
-| **[Full Conversation History Export](theoretical/full-conversation-history-export.md)** | Design for complete history preservation | Outlines a system for exporting complete conversation histories with metadata |
 
 ## Relationship to Other Resources
 
