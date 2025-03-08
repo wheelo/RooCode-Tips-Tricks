@@ -109,11 +109,20 @@ Resources in the [cheatsheets](cheatsheets/) directory:
 - **[Custom Modes LLM Instructions](cheatsheets/custom-modes-llm-instruction.md)**: Create specialized modes
 - **[Large File Handling](cheatsheets/llm-large-file-cheatsheet.md)**: Handle files that exceed context windows
 
+### Handoff System Components
+
+The repository contains three related directories for handoff functionality:
+
+- **[Handoff Manager](handoff-manager/)**: The production-ready, end-user focused implementation for managing LLM context across extended development sessions. This is the recommended version for users who want to implement the handoff system in their projects.
+
+- **[Handoff System](handoff-system/)**: The source code and build system used to create the Handoff Manager. This directory contains the publisher system that generates the installer and is primarily for developers who want to modify or extend the handoff manager functionality.
+
+- **[Handoffs](handoffs/)**: Legacy documentation from the original version of the handoff system. This directory is maintained for reference purposes and historical context, but new users should use the Handoff Manager instead.
+
 ### Custom Mode Systems
 
 Advanced custom mode frameworks:
 - **[RooArmy](roo-army/)**: Create role-specialized Roo assistants for professional development teams
-- **[Handoff Manager](handoff-manager/)**: Manage LLM context across extended development sessions
 
 ## Roo Code Documentation
 
