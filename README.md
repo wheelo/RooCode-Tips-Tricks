@@ -4,14 +4,14 @@ A collection of files designed to supercharge your Roo Code experience and maxim
 
 ## Introduction
 
-These productivity-enhancing templates can be added to your projects to modify how Roo Code's LLM behaves, creating a more efficient and effective development workflow.
+These productivity-enhancing tools and templates can be added to your projects to modify how Roo Code's LLM behaves, creating a more efficient and effective development workflow.
 
 ## Available Resources
 
-### [Handoff System](handoff-manager/docs/handoff-system.md)
+### [Handoff Manager](handoff-manager/docs/handoff-system.md)
 **Solve the context window overload problem once and for all.**
 
-The Handoff System provides a streamlined approach to manage LLM context across extended development sessions. This innovative system tackles a fundamental issue in extended LLM interactions - as sessions progress, LLMs accumulate context that becomes increasingly bloated with irrelevant information, consuming valuable tokens and degrading performance.
+The Handoff Manager provides a streamlined approach to manage LLM context across extended development sessions. This innovative system tackles a fundamental issue in extended LLM interactions - as sessions progress, LLMs accumulate context that becomes increasingly bloated with irrelevant information, consuming valuable tokens and degrading performance.
 
 **Key Benefits:**
 - **Maintain peak LLM performance** throughout long projects by starting fresh when needed
@@ -40,12 +40,14 @@ A practical cheatsheet of one-liners and code snippets in Python, Bash, Node.js,
 ### [Custom Modes LLM Instructions](cheatsheets/custom-modes-llm-instruction.md)
 Unlock the full potential of Roo Code's custom modes system with this detailed guide covering data structures, tool groups, file restrictions, and best practices with practical examples. This file is designed to be given to the LLM to create your own specific custom modes.
 
+### [RooArmy](roo-army/)
+A sophisticated system for creating and managing professional custom modes in Roo AI Assistant. RooArmy transforms Roo from a general-purpose assistant into a collection of specialized assistants for specific software development roles, with an intelligent assessment system that recommends the optimal configuration for your project.
+
 ### [Roo Code Documentation](personal_roo_docs/)
 A comprehensive collection of documentation resources for Roo Code, organized by technical depth and audience:
 
 - **[User-Friendly Guides](personal_roo_docs/normal/)**: Practical guides for everyday Roo Code users covering features, customization, and best practices without technical complexity. Use these to understand what's going on to decide if you need to feed a technical doc into the llm for some purpose.
 - **[Technical Documentation](personal_roo_docs/technical/)**: In-depth technical documentation for developers and advanced users who want to understand implementation details. The original goal of these were to create technical documents that could be fed back into Roo for it to understand subsystems. It works pretty well.
-- **[Theoretical Improvements](personal_roo_docs/theoretical/)**: Proposals for potential enhancements to Roo-Code, including sophisticated algorithms and architectural improvements. These documents are not part of the current implementation but offer a glimpse into possible future features.
 
 
 ## Getting Started
@@ -53,7 +55,7 @@ A comprehensive collection of documentation resources for Roo Code, organized by
 Each resource includes detailed implementation instructions within its files. Simply clone this repository, copy the desired files into your project, and follow the specific setup instructions within each resource.
 
 **Recommended Learning Path:**
-1. Start with the [Handoff System architecture overview](handoff-manager/docs/handoff-system.md) to understand the concepts
+1. Start with the [Handoff Manager architecture overview](handoff-manager/docs/handoff-system.md) to understand the concepts
 2. Choose your implementation path:
    - For simple installation, follow the [basic installation guide](handoff-manager/docs/basic-installation.md)
    - For manual installation, follow the [advanced installation guide](handoff-manager/docs/advanced-installation.md)
@@ -61,6 +63,7 @@ Each resource includes detailed implementation instructions within its files. Si
 4. Explore the [custom modes documentation](cheatsheets/custom-modes-llm-instruction.md) for advanced integration
 5. Reference the [Large File Handling Cheatsheet](cheatsheets/llm-large-file-cheatsheet.md) for complementary techniques
 6. Check out the [Roo Code documentation](personal_roo_docs/) for general usage guidance
+7. For specialized development roles, explore the [RooArmy system](roo-army/) to create professional role-based modes
 
 ## Project Structure
 
@@ -69,7 +72,7 @@ The project is organized into these main directories:
 ```
 RooCode-Tips-Tricks/
 ├── README.md                         # This file - project overview
-├── handoff-manager/                  # Production-ready packaged version
+├── handoff-manager/                  # Production-ready packaged version for end users
 │   ├── docs/                         # Comprehensive documentation
 │   │   ├── handoff-system.md         # System architecture and concepts
 │   │   ├── basic-installation.md     # Automated installation guide
@@ -81,31 +84,45 @@ RooCode-Tips-Tricks/
 │   ├── handoffs/                     # Template handoff directory with examples
 │   ├── .roomodes                     # Custom mode definition
 │   └── .clinerules                   # Custom rules
+├── handoff-system/                   # Source files used to build the handoff-manager
+│   ├── 0-instructions/               # Documentation templates
+│   ├── 1-handoff-custom-mode/        # Custom mode components
+│   ├── 2-scripts/                    # Utility scripts
+│   └── handoff-publisher/            # Package for generating the installer
 ├── handoffs/                         # Legacy documentation (for reference)
 │   ├── handoff-system.md             # Original system documentation
 │   ├── handoff-system-basic.md       # Original basic guide
 │   ├── handoff-system-advanced.md    # Original advanced guide
 │   └── 0-instructions/               # Original templates
 ├── cheatsheets/                      # Supplementary resources
+├── roo-army/                         # System for creating specialized custom modes
 └── personal_roo_docs/                # Roo Code documentation
 ```
 
-## Cheatsheets Collection
+## Additional Resources
 
-We've organized additional resources in the [cheatsheets](cheatsheets/) directory:
+We've organized several supplementary resources to enhance your Roo Code experience:
 
+### Cheatsheets
+
+Resources in the [cheatsheets](cheatsheets/) directory:
 - **[Custom Modes LLM Instructions](cheatsheets/custom-modes-llm-instruction.md)**: Create specialized modes
 - **[Large File Handling](cheatsheets/llm-large-file-cheatsheet.md)**: Handle files that exceed context windows
 
+### Custom Mode Systems
+
+Advanced custom mode frameworks:
+- **[RooArmy](roo-army/)**: Create role-specialized Roo assistants for professional development teams
+- **[Handoff Manager](handoff-manager/)**: Manage LLM context across extended development sessions
+
 ## Roo Code Documentation
 
-The [personal_roo_docs](personal_roo_docs/) directory contains three levels of documentation:
+The [personal_roo_docs](personal_roo_docs/) directory contains two levels of documentation:
 
 - **[User Guides](personal_roo_docs/normal/)**: Perfect for new users and those wanting practical usage tips
 - **[Technical Docs](personal_roo_docs/technical/)**: Ideal for developers and those needing implementation details
-- **[Theoretical Improvements](personal_roo_docs/theoretical/)**: Advanced proposals for future enhancements to Roo-Code (excluded from git)
 
-The documentation covers core topics at different technical depths, making them suitable for different audiences, from casual users to developers to those interested in advanced algorithm design.
+Both documentation sets cover the same core topics but at different technical depths, making them suitable for different audiences.
 
 ## License
 
