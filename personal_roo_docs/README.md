@@ -1,26 +1,16 @@
 # Roo Code Documentation Collection
 
-This directory contains a comprehensive collection of documentation resources for Roo Code, organized into different categories based on technical depth and target audience.
+This directory contains a comprehensive collection of documentation resources for Roo Code, organized into different categories based on technical depth.
 
 ## Documentation Categories
 
 ### [Normal Documentation](normal/)
 
-User-friendly guides designed for everyday users of Roo Code. These documents focus on practical usage without diving into technical implementation details.
-
-**Ideal for:**
-- New users of Roo Code
-- General usage scenarios
-- Learning about features without technical complexity
+Use these to help understand how to maximuze Roo's potential.
 
 ### [Technical Documentation](technical/)
 
-In-depth technical documentation explaining implementation details, architecture, and advanced usage patterns. These documents provide deep insights into how Roo Code works internally.
-
-**Ideal for:**
-- Developers extending or customizing Roo Code
-- Technical users who want to understand implementation details
-- Contributors to the Roo Code project
+In-depth technical documentation explaining implementation details, architecture, and advanced usage patterns. These documents provide deep insights into how Roo Code works internally. Use these as rferences for the LLM when working with Roo features. 
 
 ## Document Inventory
 
@@ -43,20 +33,6 @@ In-depth technical documentation explaining implementation details, architecture
 | **[Optimizing Context Usage](normal/optimizing-context-usage.md)** | [User Guide](normal/optimizing-context-usage.md) | [Technical](technical/optimizing-context-usage.md) | Advanced techniques for maximizing Roo's context window efficiency |
 | **[Rooignore Configuration](normal/rooignore-configuration.md)** | [User Guide](normal/rooignore-configuration.md) | [Technical](technical/rooignore-configuration.md) | Shows how to exclude files from Roo's visibility using .rooignore files |
 | **[Task Management](normal/task-management.md)** | [User Guide](normal/task-management.md) | [Technical](technical/task-management.md) | Explains how to organize different conversations and tasks with Roo |
-
-## Relationship to Other Resources
-
-The documentation in this directory complements the other resources in this repository:
-
-- **[Handoff Manager](../handoff-manager/)**: For managing LLM context across extended development sessions
-- **[Handoff System](../handoff-system/)**: Source code for the Handoff Manager
-- **[Handoffs](../handoffs/)**: Legacy documentation for the handoff system
-- **[Cheatsheets](../cheatsheets/)**: For quick reference guides and code snippets
-- **[RooArmy](../roo-army/)**: For creating specialized professional role-based custom modes
-
-## Contributing
-
-Feel free to contribute to this documentation by creating pull requests. When adding new documents, please consider whether they belong in the normal or technical sections, and update the respective README files accordingly.
 
 ## License
 
