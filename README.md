@@ -50,54 +50,6 @@ A comprehensive collection of documentation resources for Roo Code, organized by
 - **[Technical Documentation](personal_roo_docs/technical/)**: In-depth technical documentation for developers and advanced users who want to understand implementation details. The original goal of these were to create technical documents that could be fed back into Roo for it to understand subsystems. It works pretty well.
 
 
-## Getting Started
-
-Each resource includes detailed implementation instructions within its files. Simply clone this repository, copy the desired files into your project, and follow the specific setup instructions within each resource.
-
-**Recommended Learning Path:**
-1. Start with the [Handoff Manager architecture overview](handoff-manager/docs/handoff-system.md) to understand the concepts
-2. Choose your implementation path:
-   - For simple installation, follow the [basic installation guide](handoff-manager/docs/basic-installation.md)
-   - For manual installation, follow the [advanced installation guide](handoff-manager/docs/advanced-installation.md)
-3. Refer to the [usage guide](handoff-manager/docs/usage-guide.md) to learn how to use the system
-4. Explore the [custom modes documentation](cheatsheets/custom-modes-llm-instruction.md) for advanced integration
-5. Reference the [Large File Handling Cheatsheet](cheatsheets/llm-large-file-cheatsheet.md) for complementary techniques
-6. Check out the [Roo Code documentation](personal_roo_docs/) for general usage guidance
-7. For specialized development roles, explore the [RooArmy system](roo-army/) to create professional role-based modes
-
-## Project Structure
-
-The project is organized into these main directories:
-
-```
-RooCode-Tips-Tricks/
-├── README.md                         # This file - project overview
-├── handoff-manager/                  # Production-ready packaged version for end users
-│   ├── docs/                         # Comprehensive documentation
-│   │   ├── handoff-system.md         # System architecture and concepts
-│   │   ├── basic-installation.md     # Automated installation guide
-│   │   ├── advanced-installation.md  # Manual installation guide
-│   │   └── usage-guide.md            # Usage instructions
-│   ├── single-script/                # Self-contained installer
-│   │   ├── handoff-installer-readme.md  # Installation instructions
-│   │   └── handoff-manager-installer.js # The installer script
-│   ├── handoffs/                     # Template handoff directory with examples
-│   ├── .roomodes                     # Custom mode definition
-│   └── .clinerules                   # Custom rules
-├── handoff-system/                   # Source files used to build the handoff-manager
-│   ├── 0-instructions/               # Documentation templates
-│   ├── 1-handoff-custom-mode/        # Custom mode components
-│   ├── 2-scripts/                    # Utility scripts
-│   └── handoff-publisher/            # Package for generating the installer
-├── handoffs/                         # Legacy documentation (for reference)
-│   ├── handoff-system.md             # Original system documentation
-│   ├── handoff-system-basic.md       # Original basic guide
-│   ├── handoff-system-advanced.md    # Original advanced guide
-│   └── 0-instructions/               # Original templates
-├── cheatsheets/                      # Supplementary resources
-├── roo-army/                         # System for creating specialized custom modes
-└── personal_roo_docs/                # Roo Code documentation
-```
 
 ## Additional Resources
 
