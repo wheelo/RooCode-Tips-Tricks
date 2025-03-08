@@ -43,8 +43,9 @@ Unlock the full potential of Roo Code's custom modes system with this detailed g
 ### [Roo Code Documentation](personal_roo_docs/)
 A comprehensive collection of documentation resources for Roo Code, organized by technical depth and audience:
 
-- **[User-Friendly Guides](personal_roo_docs/normal/)**: Practical guides for everyday Roo Code users covering features, customization, and best practices without technical complexity. Use these to understand what's going on to decide if you need to feed a technical doc into the llm for some purpose. 
-- **[Technical Documentation](personal_roo_docs/technical/)**: In-depth technical documentation for developers and advanced users who want to understand implementation details. The original goal of these were to create technical documents that could be fed back into Roo for it to understand subsystems. It works pretty well. 
+- **[User-Friendly Guides](personal_roo_docs/normal/)**: Practical guides for everyday Roo Code users covering features, customization, and best practices without technical complexity. Use these to understand what's going on to decide if you need to feed a technical doc into the llm for some purpose.
+- **[Technical Documentation](personal_roo_docs/technical/)**: In-depth technical documentation for developers and advanced users who want to understand implementation details. The original goal of these were to create technical documents that could be fed back into Roo for it to understand subsystems. It works pretty well.
+- **[Theoretical Improvements](personal_roo_docs/theoretical/)**: Proposals for potential enhancements to Roo-Code, including sophisticated algorithms and architectural improvements. These documents are not part of the current implementation but offer a glimpse into possible future features.
 
 
 ## Getting Started
@@ -98,12 +99,13 @@ We've organized additional resources in the [cheatsheets](cheatsheets/) director
 
 ## Roo Code Documentation
 
-The [personal_roo_docs](personal_roo_docs/) directory contains two levels of documentation:
+The [personal_roo_docs](personal_roo_docs/) directory contains three levels of documentation:
 
 - **[User Guides](personal_roo_docs/normal/)**: Perfect for new users and those wanting practical usage tips
 - **[Technical Docs](personal_roo_docs/technical/)**: Ideal for developers and those needing implementation details
+- **[Theoretical Improvements](personal_roo_docs/theoretical/)**: Advanced proposals for future enhancements to Roo-Code (excluded from git)
 
-Both documentation sets cover the same core topics but at different technical depths, making them suitable for different audiences.
+The documentation covers core topics at different technical depths, making them suitable for different audiences, from casual users to developers to those interested in advanced algorithm design.
 
 ## License
 
