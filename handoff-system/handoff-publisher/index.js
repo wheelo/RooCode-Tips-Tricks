@@ -219,7 +219,6 @@ function main() {
     
     // Step 7: Generate installer
     modules['installer-assembler'].generateInstaller(allFiles, outputFile, publishConfig, componentConfigs);
-    modules['installer-assembler'].generateInstaller(allFiles, outputFile, publishConfig, componentConfigs);
     
     // Copy the readme file to the output directory with the same name
     const readmeSource = path.join(sourceDir, 'handoff-installer-readme.md');
