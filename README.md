@@ -16,6 +16,13 @@ A simple utility script that generates and updates `.rooignore` files to prevent
 - Skips scanning large directories for efficiency
 - Requires no external dependencies (pure Node.js)
 
+## [.roomodes Validator](roomodes-validator/README.md)
+A validation tool that checks `.roomodes` files against Roo-Code specifications and fixes common issues.
+
+- Identifies structural problems, invalid slugs, missing fields, and improper regex patterns
+- Provides automatic fixing with the `--fix` flag to correct detected issues
+- Validates all aspects of custom modes including tool groups and file restrictions
+- Outputs clear, actionable error messages to guide manual corrections
 
 ## [Handoff Manager](handoff-manager/docs/handoff-system.md)
 **Solve the context window overload problem once and for all.**
