@@ -79,8 +79,9 @@ function processRootFiles(sourceDir, systemPrompt, rootFiles, encodeFileToBase64
   const fileContents = {};
   
   // Add the assembled system prompt as a virtual file
-  fileContents['system-prompt-handoff-manager'] = Buffer.from(systemPrompt, 'utf8').toString('base64');
-  console.log(`- Added dynamically assembled system prompt`);
+  // Must go in .roo directory to be properly detected by Roo-Code
+  fileContents['.roo/system-prompt-handoff-manager'] = Buffer.from(systemPrompt, 'utf8').toString('base64');
+  console.log(`- Added dynamically assembled system prompt (in .roo directory)`);
   
   // Use the provided encodeFileToBase64 function or the one from fileUtils
   let encodeFn = encodeFileToBase64;

@@ -219,7 +219,7 @@ The Handoff Manager (v${publishConfig.version}) has been installed to \${targetD
 Files installed:
 - Custom mode in .roomodes
 - Handoff rules in .clinerules
-- System prompt (if applicable)
+- System prompt in .roo directory (required location for Roo-Code to detect it)
 \${CONFIG.directories.map(dir => \`- \${dir.target}\`).join('\\n')}
 \${Object.keys(backupPaths).length > 0 ? \`
 Backup created:\` : ''}
