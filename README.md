@@ -1,6 +1,6 @@
 # Roo Code Tips & Tricks
 
-A collection of files designed to supercharge your Roo Code experience and maximize productivity.
+A collection of files designed to supercharge Roo experience and maximize productivity.
 
 ## [Roo Code Documentation](personal_roo_docs/)
 A comprehensive collection of documentation resources for Roo Code, organized by technical depth and audience:
