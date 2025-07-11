@@ -4,9 +4,9 @@ config:
 ---
 flowchart TD
     A["<b>Extension Entry</b><br>src/extension.ts"] --> B["创建ClineProvider"] & C["注册命令和代码操作<br>src/activate/registerCommands.ts<br>src/activate/registerCodeActions.ts"] & D["设置国际化"] & E["初始化终端注册表<br>src/integrations/terminal/TerminalRegistry.ts"] & F@{ label: "注册<span style=\"color:\">DiffViewProvider</span><br>src/integrations/editor/DiffViewProvider.ts" } & CLI_ROOT["<b>CLI System</b><br>命令行系统"] & PKG_MGR["<b>Package Manager</b><br>包管理器"] & TERMINAL_INT["<b>Terminal Integration</b><br>终端集成"] & GLOBAL_CONFIG["<b>Global Config</b><br>全局配置系统"]
-    B --> G["<b>🎯 ClineProvider</b><br><b>核心控制器</b><br>src/core/webview/ClineProvider.ts"]
+    B --> G["<b>ClineProvider</b><br><b>核心控制器</b><br>src/core/webview/ClineProvider.ts"]
     G --> I["处理UI消息"] & J["维护Cline实例栈"] & K["协调任务执行<br>src/core/task/Task.ts#L124"] & TT["ContextProxy<br>src/core/context/ContextProxy.ts"] & UU["WorkspaceTracker<br>src/core/workspace/WorkspaceTracker.ts"]
-    J --> S["<b>Task Engine</b><br>src/core/task/Task.ts#L124"]
+    J --> S["<b>Task</b><br>src/core/task/Task.ts"]
     S --> T["任务生命周期管理<br>• 初始化状态<br>• 执行中状态<br>• 完成状态<br>• 错误状态"] & U["处理用户输入<br>src/core/webview/webviewMessageHandler.ts"] & V["发送API请求"] & W["调用工具"] & X["管理任务状态"] & VV["FileContextTracker<br>src/core/task/FileContextTracker.ts"] & WW["ToolRepetitionDetector<br>src/core/tools/ToolRepetitionDetector.ts"]
     W --> Y["<b>Tools System</b><br>src/core/tools/"]
     X --> STORAGE["<b>Storage System</b><br>存储系统"]
@@ -17,7 +17,7 @@ flowchart TD
     N --> O["SettingsView组件<br>webview-ui/src/components/SettingsView/SettingsView.tsx"]
     O --> P["MarketplaceView组件<br>webview-ui/src/components/MarketplaceView/MarketplaceView.tsx"]
     Y --> Z["readFileTool<br>src/core/tools/readFileTool.ts"] & AA["writeToFileTool<br>src/core/tools/writeToFileTool.ts"] & BB["executeCommandTool<br>src/core/tools/executeCommandTool.ts"] & CC["codebaseSearchTool<br>src/core/tools/codebaseSearchTool.ts"] & DD["applyDiffTool<br>src/core/tools/applyDiffTool.ts"] & EE["insertContentTool<br>src/core/tools/insertContentTool.ts"] & FF["searchAndReplaceTool<br>src/core/tools/searchAndReplaceTool.ts"] & GG["listFilesTool<br>src/core/tools/listFilesTool.ts"]
-    STORAGE --> CHECKPOINTS["<b>Checkpoints</b><br>src/core/storage/checkpoints/<br>• 任务检查点<br>• 状态快照<br>• 回滚机制"] & TASK_STORAGE["<b>Task Storage</b><br>src/core/storage/task/<br>• taskMessages.ts<br>• apiMessages.ts<br>• taskMetadata.ts"] & VSCODE_STORAGE["<b>VSCode Storage</b><br>VSCode存储系统"]
+    STORAGE --> CHECKPOINTS["<b>Checkpoints</b><br>src/core/checkpoints<br>• 任务检查点<br>• 状态快照<br>• 回滚机制"] & TASK_STORAGE["<b>Task Storage</b><br>src/core/task-persistence/task/<br>• taskMessages.ts<br>• apiMessages.ts<br>• taskMetadata.ts"] & VSCODE_STORAGE["<b>VSCode Storage</b><br>VSCode存储系统"]
     C --> CLI_ROOT & TERMINAL_INT & Y
     V --> HH["API Handler<br>src/api/"]
     HH --> II["ApiHandler接口<br>src/api/index.ts"] & JJ["API Providers<br>src/api/providers/"]
@@ -81,7 +81,6 @@ flowchart TD
      CHECKPOINTS:::storage
      TASK_STORAGE:::storage
      VSCODE_STORAGE:::vscodeStorage
-     GLOBAL_STATE:::vscodeStorage
      HH:::api
      II:::api
      JJ:::api
@@ -99,6 +98,7 @@ flowchart TD
      TERM_REG:::cli
      TERM_PROC:::cli
      SHELL_INT:::cli
+     GLOBAL_STATE:::vscodeStorage
      SECRETS_STORAGE:::vscodeStorage
     classDef entryPoint fill:#e1f5fe
     classDef coreController fill:#ffeb3b,stroke:#f57f17,stroke-width:3px
