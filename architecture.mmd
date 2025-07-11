@@ -3,13 +3,13 @@ config:
   layout: elk
 ---
 flowchart TD
-    A["<b>Extension Entry</b><br>src/extension.ts"] --> B["创建ClineProvider"] & C["注册命令和代码操作"] & D["设置国际化"] & E["初始化终端注册表"] & F["注册差异视图提供者"] & CLI_ROOT["<b>CLI System</b><br>命令行系统"] & PKG_MGR["<b>Package Manager</b><br>包管理器"] & TERMINAL_INT["<b>Terminal Integration</b><br>终端集成"]
+    A["<b>Extension Entry</b><br>src/extension.ts"] --> B["创建ClineProvider"] & C["注册命令和代码操作<br>src/activate/registerCommands.ts<br>src/activate/registerCodeActions.ts"] & D["设置国际化"] & E["初始化终端注册表<br>src/integrations/terminal/TerminalRegistry.ts"] & F@{ label: "注册<span style=\"color:\">DiffViewProvider</span><br>src/integrations/editor/DiffViewProvider.ts" } & CLI_ROOT["<b>CLI System</b><br>命令行系统"] & PKG_MGR["<b>Package Manager</b><br>包管理器"] & TERMINAL_INT["<b>Terminal Integration</b><br>终端集成"]
     B --> G["<b>ClineProvider</b><br>src/core/webview/ClineProvider.ts"]
-    G --> H["管理Webview视图"] & I["处理UI消息"] & J["维护Cline实例栈"] & K["协调任务执行"] & TT["ContextProxy<br>src/core/context/ContextProxy.ts"] & UU["WorkspaceTracker<br>src/core/workspace/WorkspaceTracker.ts"]
+    G --> I["处理UI消息"] & J["维护Cline实例栈"] & K["协调任务执行<br>src/core/task/Task.ts#L124"] & TT["ContextProxy<br>src/core/context/ContextProxy.ts"] & UU["WorkspaceTracker<br>src/core/workspace/WorkspaceTracker.ts"]
     J --> S["<b>Task Engine</b><br>src/core/task/Task.ts#L124"]
-    S --> T["任务生命周期管理"] & U["处理用户输入"] & V["发送API请求"] & W["调用工具"] & X["管理任务状态"] & VV["FileContextTracker<br>src/core/task/FileContextTracker.ts"] & WW["ToolRepetitionDetector<br>src/core/tools/ToolRepetitionDetector.ts"]
+    S --> T["任务生命周期管理<br>• 初始化状态<br>• 执行中状态<br>• 完成状态<br>• 错误状态"] & U["处理用户输入<br>src/core/webview/webviewMessageHandler.ts"] & V["发送API请求"] & W["调用工具"] & X["管理任务状态"] & VV["FileContextTracker<br>src/core/task/FileContextTracker.ts"] & WW["ToolRepetitionDetector<br>src/core/tools/ToolRepetitionDetector.ts"]
     I --> SS["<b>webviewMessageHandler</b><br>src/core/webview/webviewMessageHandler.ts"]
-    G -. 管理视图 .-> L["Webview UI<br>webview-ui/src/App.tsx"]
+    G -. 管理webview视图 .-> L["Webview UI<br>webview-ui/src/App.tsx"]
     L --> M["ChatView组件<br>webview-ui/src/components/ChatView/ChatView.tsx"]
     M --> Q["ChatTextArea<br>webview-ui/src/components/ChatView/ChatTextArea.tsx"] & R["ChatRow<br>webview-ui/src/components/ChatView/ChatRow.tsx"] & N["HistoryView组件<br>webview-ui/src/components/HistoryView/HistoryView.tsx"]
     N --> O["SettingsView组件<br>webview-ui/src/components/SettingsView/SettingsView.tsx"]
@@ -24,7 +24,7 @@ flowchart TD
     OO --> PP["taskMessages.ts<br>src/core/task-persistence/taskMessages.ts"] & QQ["apiMessages.ts<br>src/core/task-persistence/apiMessages.ts"] & RR["taskMetadata.ts<br>src/core/task-persistence/taskMetadata.ts"]
     CLI_ROOT --> PKG_MGR & BUILD_SCRIPTS["<b>Build Scripts</b><br>构建脚本"] & EVALS_CLI["<b>Evals CLI</b><br>评估命令行"] & TERMINAL_INT
     PKG_MGR --> ROOT_PKG["package.json<br>根包配置"] & PNPM_WS["pnpm-workspace.yaml<br>PNPM工作区"] & TURBO_CFG["turbo.json<br>Turbo配置"] & BUILD_SCRIPTS & EVALS_CLI
-    BUILD_SCRIPTS --> BOOTSTRAP["scripts/bootstrap.mjs<br>引导脚本"] & INSTALL_VSIX["scripts/install-vsix.js<br>VSIX安装"] & UPDATE_CONTRIB["scripts/update-contributors.js<br>贡献者更新"] & I18N_SCRIPTS["scripts/find-missing-*.js<br>国际化脚本"]
+    BUILD_SCRIPTS --> BOOTSTRAP["scripts/bootstrap.mjs<br>引导脚本"] & INSTALL_VSIX["scripts/install-vsix.js<br>VSIX安装"] & I18N_SCRIPTS["scripts/find-missing-*.js<br>国际化脚本"]
     EVALS_CLI --> EVALS_ENTRY["packages/evals/src/cli/index.ts<br>CLI入口"]
     EVALS_ENTRY --> RUN_CI["packages/evals/src/cli/runCi.ts<br>CI运行器"] & RUN_EVALS["packages/evals/src/cli/runEvals.js<br>评估运行器"] & RUN_TASK["packages/evals/src/cli/runTask.js<br>任务运行器"]
     E --> TERMINAL_INT
@@ -41,6 +41,7 @@ flowchart TD
     S -. 持久化 .-> OO
     TERM_REG -. 进程管理 .-> TERM_PROC
     TERM_PROC -. Shell集成 .-> SHELL_INT
+    F@{ shape: rect}
      A:::entryPoint
      CLI_ROOT:::cli
      PKG_MGR:::cli
@@ -85,7 +86,6 @@ flowchart TD
      TURBO_CFG:::cli
      BOOTSTRAP:::cli
      INSTALL_VSIX:::cli
-     UPDATE_CONTRIB:::cli
      I18N_SCRIPTS:::cli
      EVALS_ENTRY:::cli
      RUN_CI:::cli

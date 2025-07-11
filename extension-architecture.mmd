@@ -1,67 +1,105 @@
-flowchart TB
-    subgraph "VSCode Extension Host"
-        subgraph "Core Extension"
-            ExtensionEntry["Extension Entry<br/>src/extension.ts"]
-            WebviewProvider["WebviewProvider<br/>src/core/webview/index.ts"]
-            Controller["Controller<br/>src/core/controller/index.ts"]
-            Task["Task<br/>src/core/task/index.ts"]
-            GlobalState["VSCode Global State"]
-            SecretsStorage["VSCode Secrets Storage"]
-            McpHub["McpHub<br/>src/services/mcp/McpHub.ts"]
-        end
-
-        subgraph "Webview UI"
-            WebviewApp["React App<br/>webview-ui/src/App.tsx"]
-            ExtStateContext["ExtensionStateContext<br/>webview-ui/src/context/ExtensionStateContext.tsx"]
-            ReactComponents["React Components"]
-        end
-
-        subgraph "Storage"
-            TaskStorage["Task Storage<br/>Per-Task Files & History"]
-            CheckpointSystem["Git-based Checkpoints"]
-        end
-
-        subgraph "API Providers"
-            AnthropicAPI["Anthropic"]
-            OpenRouterAPI["OpenRouter"]
-            BedrockAPI["AWS Bedrock"]
-            OtherAPIs["Other Providers"]
-        end
-
-        subgraph "MCP Servers"
-            ExternalMcpServers["External MCP Servers"]
-        end
-    end
-
-    %% Core Extension Data Flow
-    ExtensionEntry --> WebviewProvider
-    WebviewProvider --> Controller
-    Controller --> Task
-    Controller --> McpHub
-    Task --> GlobalState
-    Task --> SecretsStorage
-    Task --> TaskStorage
-    Task --> CheckpointSystem
-    Task --> |"API Requests"| AnthropicAPI
-    Task --> |"API Requests"| OpenRouterAPI
-    Task --> |"API Requests"| BedrockAPI
-    Task --> |"API Requests"| OtherAPIs
-    McpHub --> |"Connects to"| ExternalMcpServers
-    Task --> |"Uses"| McpHub
-
-    %% Webview Data Flow
-    WebviewApp --> ExtStateContext
-    ExtStateContext --> ReactComponents
-
-    %% Bidirectional Communication
-    WebviewProvider <--> |"postMessage"| ExtStateContext
-
-    classDef vscodeState fill:#f9f,stroke:#333,stroke-width:2px
-    classDef contextClass fill:#bbf,stroke:#333,stroke-width:2px
-    classDef providerClass fill:#bfb,stroke:#333,stroke-width:2px
-    classDef apiClass fill:#fdb,stroke:#333,stroke-width:2px
-
-    class GlobalState,SecretsStorage vscodeState
-    class ExtStateContext contextClass
-    class WebviewProvider,McpHub providerClass
-    class AnthropicAPI,OpenRouterAPI,BedrockAPI,OtherAPIs apiClass
+---
+config:
+  layout: elk
+---
+flowchart TD
+    A["<b>Extension Entry</b><br>src/extension.ts"] --> B["创建ClineProvider"] & C["注册命令和代码操作"] & D["设置国际化"] & E["初始化终端注册表"] & F@{ label: "注册<span style=\"color:\">DiffViewProvider</span>" } & CLI_ROOT["<b>CLI System</b><br>命令行系统"] & PKG_MGR["<b>Package Manager</b><br>包管理器"] & TERMINAL_INT["<b>Terminal Integration</b><br>终端集成"]
+    B --> G["<b>ClineProvider</b><br>src/core/webview/ClineProvider.ts"]
+    G --> I["处理UI消息"] & J["维护Cline实例栈"] & K["协调任务执行"] & TT["ContextProxy<br>src/core/context/ContextProxy.ts"] & UU["WorkspaceTracker<br>src/core/workspace/WorkspaceTracker.ts"]
+    J --> S["<b>Task Engine</b><br>src/core/task/Task.ts#L124"]
+    S --> T["任务生命周期管理"] & U["处理用户输入"] & V["发送API请求"] & W["调用工具"] & X["管理任务状态"] & VV["FileContextTracker<br>src/core/task/FileContextTracker.ts"] & WW["ToolRepetitionDetector<br>src/core/tools/ToolRepetitionDetector.ts"]
+    I --> SS["<b>webviewMessageHandler</b><br>src/core/webview/webviewMessageHandler.ts"]
+    G -. 管理webview视图 .-> L["Webview UI<br>webview-ui/src/App.tsx"]
+    L --> M["ChatView组件<br>webview-ui/src/components/ChatView/ChatView.tsx"]
+    M --> Q["ChatTextArea<br>webview-ui/src/components/ChatView/ChatTextArea.tsx"] & R["ChatRow<br>webview-ui/src/components/ChatView/ChatRow.tsx"] & N["HistoryView组件<br>webview-ui/src/components/HistoryView/HistoryView.tsx"]
+    N --> O["SettingsView组件<br>webview-ui/src/components/SettingsView/SettingsView.tsx"]
+    O --> P["MarketplaceView组件<br>webview-ui/src/components/MarketplaceView/MarketplaceView.tsx"]
+    W --> Y["Tools System<br>src/core/tools/"]
+    Y --> Z["readFileTool<br>src/core/tools/readFileTool.ts"] & AA["writeToFileTool<br>src/core/tools/writeToFileTool.ts"] & BB["executeCommandTool<br>src/core/tools/executeCommandTool.ts"] & CC["codebaseSearchTool<br>src/core/tools/codebaseSearchTool.ts"] & DD["applyDiffTool<br>src/core/tools/applyDiffTool.ts"] & EE["insertContentTool<br>src/core/tools/insertContentTool.ts"] & FF["searchAndReplaceTool<br>src/core/tools/searchAndReplaceTool.ts"] & GG["listFilesTool<br>src/core/tools/listFilesTool.ts"]
+    C --> CLI_ROOT & TERMINAL_INT & Y
+    V --> HH["API Handler<br>src/api/"]
+    HH --> II["ApiHandler接口<br>src/api/index.ts"] & JJ["API Providers<br>src/api/providers/"]
+    JJ --> KK["anthropic.ts<br>src/api/providers/anthropic.ts"] & LL["openai.ts<br>src/api/providers/openai.ts"] & NN["其他提供商<br>src/api/providers/"]
+    X --> OO["Task Persistence<br>src/core/task-persistence/"]
+    OO --> PP["taskMessages.ts<br>src/core/task-persistence/taskMessages.ts"] & QQ["apiMessages.ts<br>src/core/task-persistence/apiMessages.ts"] & RR["taskMetadata.ts<br>src/core/task-persistence/taskMetadata.ts"]
+    CLI_ROOT --> PKG_MGR & BUILD_SCRIPTS["<b>Build Scripts</b><br>构建脚本"] & EVALS_CLI["<b>Evals CLI</b><br>评估命令行"] & TERMINAL_INT
+    PKG_MGR --> ROOT_PKG["package.json<br>根包配置"] & PNPM_WS["pnpm-workspace.yaml<br>PNPM工作区"] & TURBO_CFG["turbo.json<br>Turbo配置"] & BUILD_SCRIPTS & EVALS_CLI
+    BUILD_SCRIPTS --> BOOTSTRAP["scripts/bootstrap.mjs<br>引导脚本"] & INSTALL_VSIX["scripts/install-vsix.js<br>VSIX安装"] & I18N_SCRIPTS["scripts/find-missing-*.js<br>国际化脚本"]
+    EVALS_CLI --> EVALS_ENTRY["packages/evals/src/cli/index.ts<br>CLI入口"]
+    EVALS_ENTRY --> RUN_CI["packages/evals/src/cli/runCi.ts<br>CI运行器"] & RUN_EVALS["packages/evals/src/cli/runEvals.js<br>评估运行器"] & RUN_TASK["packages/evals/src/cli/runTask.js<br>任务运行器"]
+    E --> TERMINAL_INT
+    TERMINAL_INT --> TERM_REG["src/integrations/terminal/TerminalRegistry.ts<br>终端注册表"] & TERM_PROC["src/integrations/terminal/TerminalProcess.ts<br>终端进程"] & SHELL_INT["src/integrations/terminal/ShellIntegrationManager.ts<br>Shell集成"] & BB
+    Q -. 用户输入 .-> SS
+    SS -. 转发消息 .-> S
+    S -. API请求 .-> HH
+    HH -. 响应 .-> S
+    S -. 更新状态 .-> G
+    G -. UI更新 .-> M
+    S -. 选择工具 .-> Y
+    Y -. 执行操作 .-> XX["文件系统/命令行"]
+    XX -. 结果返回 .-> S
+    S -. 持久化 .-> OO
+    TERM_REG -. 进程管理 .-> TERM_PROC
+    TERM_PROC -. Shell集成 .-> SHELL_INT
+    F@{ shape: rect}
+     A:::entryPoint
+     CLI_ROOT:::cli
+     PKG_MGR:::cli
+     TERMINAL_INT:::cli
+     G:::controller
+     TT:::core
+     UU:::core
+     S:::engine
+     VV:::core
+     WW:::tools
+     SS:::controller
+     L:::ui
+     M:::ui
+     Q:::ui
+     R:::ui
+     N:::ui
+     O:::ui
+     P:::ui
+     Y:::tools
+     Z:::tools
+     AA:::tools
+     BB:::tools
+     CC:::tools
+     DD:::tools
+     EE:::tools
+     FF:::tools
+     GG:::tools
+     HH:::api
+     II:::api
+     JJ:::api
+     KK:::api
+     LL:::api
+     NN:::api
+     OO:::persistence
+     PP:::persistence
+     QQ:::persistence
+     RR:::persistence
+     BUILD_SCRIPTS:::cli
+     EVALS_CLI:::cli
+     ROOT_PKG:::cli
+     PNPM_WS:::cli
+     TURBO_CFG:::cli
+     BOOTSTRAP:::cli
+     INSTALL_VSIX:::cli
+     I18N_SCRIPTS:::cli
+     EVALS_ENTRY:::cli
+     RUN_CI:::cli
+     RUN_EVALS:::cli
+     RUN_TASK:::cli
+     TERM_REG:::cli
+     TERM_PROC:::cli
+     SHELL_INT:::cli
+    classDef entryPoint fill:#e1f5fe
+    classDef controller fill:#f3e5f5
+    classDef ui fill:#e8f5e8
+    classDef engine fill:#fff3e0
+    classDef tools fill:#fce4ec
+    classDef api fill:#f1f8e9
+    classDef persistence fill:#fff8e1
+    classDef core fill:#f0f4c3
+    classDef cli fill:#e8eaf6,stroke:#3f51b5,stroke-width:2px
