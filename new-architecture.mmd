@@ -1,32 +1,34 @@
 ---
 config:
   layout: elk
-  theme: default
-  look: classic
 ---
 flowchart TD
-    A["🚀 <b>扩展入口层</b><br>Extension Entry<br>src/extension.ts"] --> B["创建ClineProvider"] & C["注册命令和代码操作"] & D["设置国际化"] & E["初始化终端注册表"] & F["注册差异视图提供者"]
-    B --> G["⚙️ <b>核心控制层</b><br>ClineProvider<br>src/core/webview/ClineProvider.ts"]
-    G --> H["管理Webview视图"] & I["处理UI消息"] & J["维护Cline实例栈"] & K["协调任务执行"] & TT["上下文代理<br>ContextProxy<br>src/core/context/ContextProxy.ts"] & UU["工作区跟踪器<br>WorkspaceTracker<br>src/core/workspace/WorkspaceTracker.ts"] & L["🖥️ <b>用户界面层</b><br>Webview UI<br>webview-ui/src/App.tsx"]
-    I --> SS["📨 <b>UI消息处理层</b><br>webviewMessageHandler<br>src/core/webview/webviewMessageHandler.ts"]
-    L --> M["聊天视图组件<br>ChatView<br>webview-ui/src/components/ChatView/ChatView.tsx"] & N["历史视图组件<br>HistoryView<br>webview-ui/src/components/HistoryView/HistoryView.tsx"] & O["设置视图组件<br>SettingsView<br>webview-ui/src/components/SettingsView/SettingsView.tsx"] & P["市场视图组件<br>MarketplaceView<br>webview-ui/src/components/MarketplaceView/MarketplaceView.tsx"]
-    M --> Q["聊天文本区域<br>ChatTextArea<br>webview-ui/src/components/ChatView/ChatTextArea.tsx"] & R["聊天行组件<br>ChatRow<br>webview-ui/src/components/ChatView/ChatRow.tsx"]
-    J --> S["🔧 <b>任务引擎层</b><br>Task Engine<br>src/core/task/Task.ts#L124"]
-    S --> T["任务生命周期管理"] & U["处理用户输入"] & V["发送API请求"] & W["调用工具"] & X["管理任务状态"] & VV["文件上下文跟踪器<br>FileContextTracker<br>src/core/task/FileContextTracker.ts"] & WW["工具重复检测器<br>ToolRepetitionDetector<br>src/core/tools/ToolRepetitionDetector.ts"]
-    W --> Y["🛠️ <b>工具系统层</b><br>Tools System<br>src/core/tools/"]
-    Y --> Z["文件读取工具<br>readFileTool<br>src/core/tools/readFileTool.ts"] & AA["文件写入工具<br>writeToFileTool<br>src/core/tools/writeToFileTool.ts"] & BB["命令执行工具<br>executeCommandTool<br>src/core/tools/executeCommandTool.ts"] & CC["代码库搜索工具<br>codebaseSearchTool<br>src/core/tools/codebaseSearchTool.ts"] & DD["差异应用工具<br>applyDiffTool<br>src/core/tools/applyDiffTool.ts"] & EE["内容插入工具<br>insertContentTool<br>src/core/tools/insertContentTool.ts"] & FF["搜索替换工具<br>searchAndReplaceTool<br>src/core/tools/searchAndReplaceTool.ts"] & GG["文件列表工具<br>listFilesTool<br>src/core/tools/listFilesTool.ts"] & GITDIFF["📋 <b>Git Diff系统</b><br>Git Diff System"]
-    GITDIFF --> DIFF1["差异检测<br>Diff Detection<br>src/core/diff/"] & DIFF2["变更追踪<br>Change Tracking"] & DIFF3["文件比较<br>File Comparison"]
-    CC --> YY["🔍 <b>代码库索引系统</b><br>Codebase Index System"]
-    YY --> LAYER1["<b>管理层</b><br>Management Layer"] & LAYER2["<b>处理层</b><br>Processing Layer"] & LAYER3["<b>存储层</b><br>Storage Layer"]
-    LAYER1 --> ZZ["索引管理器<br>CodeIndexManager<br>src/core/codebase-index/manager.ts"] & AAA["配置管理器<br>CodeIndexConfigManager<br>src/core/codebase-index/config.ts"] & BBB["状态管理器<br>CodeIndexStateManager<br>src/core/codebase-index/state.ts"]
-    LAYER2 --> CCC["服务工厂<br>CodeIndexServiceFactory<br>src/core/codebase-index/service-factory.ts"] & DDD["编排器<br>CodeIndexOrchestrator<br>src/core/codebase-index/orchestrator.ts"] & EEE["目录扫描器<br>DirectoryScanner<br>src/core/codebase-index/scanner.ts"] & FFF["文件监听器<br>FileWatcher<br>src/core/codebase-index/file-watcher.ts"] & GGG["代码解析器<br>CodeParser<br>src/core/codebase-index/parser.ts"] & HHH["Tree-sitter解析<br>src/core/codebase-index/tree-sitter/index.ts"]
-    LAYER3 --> III["向量存储<br>VectorStore<br>src/core/codebase-index/vector-store/"] & JJJ["缓存管理器<br>CacheManager<br>src/core/codebase-index/cache.ts"]
-    V --> HH["🌐 <b>API处理层</b><br>API Handler<br>src/api/"]
-    HH --> II["API处理接口<br>ApiHandler接口<br>src/api/index.ts"] & JJ["API提供商<br>API Providers<br>src/api/providers/"]
-    JJ --> KK["Anthropic提供商<br>anthropic.ts<br>src/api/providers/anthropic.ts"] & LL["OpenAI提供商<br>openai.ts<br>src/api/providers/openai.ts"] & NN["其他提供商<br>src/api/providers/"]
-    X --> OO["💾 <b>持久化层</b><br>Persistence Layer"]
-    OO --> LOCAL["<b>持久化</b><br>src/core/task-persistence/"]
-    LOCAL --> PP["任务消息存储<br>taskMessages.ts<br>src/core/task-persistence/taskMessages.ts"] & QQ["API消息存储<br>apiMessages.ts<br>src/core/task-persistence/apiMessages.ts"] & RR["任务元数据存储<br>taskMetadata.ts<br>src/core/task-persistence/taskMetadata.ts"] & CACHE["本地缓存<br>Local Cache"] & FILES["文件系统存储<br>File System Storage"]
+    A["<b>Extension Entry</b><br>src/extension.ts"] --> B["创建ClineProvider"] & C["注册命令和代码操作"] & D["设置国际化"] & E["初始化终端注册表"] & F["注册差异视图提供者"] & CLI_ROOT["<b>CLI System</b><br>命令行系统"] & PKG_MGR["<b>Package Manager</b><br>包管理器"] & TERMINAL_INT["<b>Terminal Integration</b><br>终端集成"]
+    B --> G["<b>ClineProvider</b><br>src/core/webview/ClineProvider.ts"]
+    G --> H["管理Webview视图"] & I["处理UI消息"] & J["维护Cline实例栈"] & K["协调任务执行"] & TT["ContextProxy<br>src/core/context/ContextProxy.ts"] & UU["WorkspaceTracker<br>src/core/workspace/WorkspaceTracker.ts"]
+    J --> S["<b>Task Engine</b><br>src/core/task/Task.ts#L124"]
+    S --> T["任务生命周期管理"] & U["处理用户输入"] & V["发送API请求"] & W["调用工具"] & X["管理任务状态"] & VV["FileContextTracker<br>src/core/task/FileContextTracker.ts"] & WW["ToolRepetitionDetector<br>src/core/tools/ToolRepetitionDetector.ts"]
+    I --> SS["<b>webviewMessageHandler</b><br>src/core/webview/webviewMessageHandler.ts"]
+    G -. 管理视图 .-> L["Webview UI<br>webview-ui/src/App.tsx"]
+    L --> M["ChatView组件<br>webview-ui/src/components/ChatView/ChatView.tsx"]
+    M --> Q["ChatTextArea<br>webview-ui/src/components/ChatView/ChatTextArea.tsx"] & R["ChatRow<br>webview-ui/src/components/ChatView/ChatRow.tsx"] & N["HistoryView组件<br>webview-ui/src/components/HistoryView/HistoryView.tsx"]
+    N --> O["SettingsView组件<br>webview-ui/src/components/SettingsView/SettingsView.tsx"]
+    O --> P["MarketplaceView组件<br>webview-ui/src/components/MarketplaceView/MarketplaceView.tsx"]
+    W --> Y["Tools System<br>src/core/tools/"]
+    Y --> Z["readFileTool<br>src/core/tools/readFileTool.ts"] & AA["writeToFileTool<br>src/core/tools/writeToFileTool.ts"] & BB["executeCommandTool<br>src/core/tools/executeCommandTool.ts"] & CC["codebaseSearchTool<br>src/core/tools/codebaseSearchTool.ts"] & DD["applyDiffTool<br>src/core/tools/applyDiffTool.ts"] & EE["insertContentTool<br>src/core/tools/insertContentTool.ts"] & FF["searchAndReplaceTool<br>src/core/tools/searchAndReplaceTool.ts"] & GG["listFilesTool<br>src/core/tools/listFilesTool.ts"]
+    C --> CLI_ROOT & TERMINAL_INT & Y
+    V --> HH["API Handler<br>src/api/"]
+    HH --> II["ApiHandler接口<br>src/api/index.ts"] & JJ["API Providers<br>src/api/providers/"]
+    JJ --> KK["anthropic.ts<br>src/api/providers/anthropic.ts"] & LL["openai.ts<br>src/api/providers/openai.ts"] & NN["其他提供商<br>src/api/providers/"]
+    X --> OO["Task Persistence<br>src/core/task-persistence/"]
+    OO --> PP["taskMessages.ts<br>src/core/task-persistence/taskMessages.ts"] & QQ["apiMessages.ts<br>src/core/task-persistence/apiMessages.ts"] & RR["taskMetadata.ts<br>src/core/task-persistence/taskMetadata.ts"]
+    CLI_ROOT --> PKG_MGR & BUILD_SCRIPTS["<b>Build Scripts</b><br>构建脚本"] & EVALS_CLI["<b>Evals CLI</b><br>评估命令行"] & TERMINAL_INT
+    PKG_MGR --> ROOT_PKG["package.json<br>根包配置"] & PNPM_WS["pnpm-workspace.yaml<br>PNPM工作区"] & TURBO_CFG["turbo.json<br>Turbo配置"] & BUILD_SCRIPTS & EVALS_CLI
+    BUILD_SCRIPTS --> BOOTSTRAP["scripts/bootstrap.mjs<br>引导脚本"] & INSTALL_VSIX["scripts/install-vsix.js<br>VSIX安装"] & UPDATE_CONTRIB["scripts/update-contributors.js<br>贡献者更新"] & I18N_SCRIPTS["scripts/find-missing-*.js<br>国际化脚本"]
+    EVALS_CLI --> EVALS_ENTRY["packages/evals/src/cli/index.ts<br>CLI入口"]
+    EVALS_ENTRY --> RUN_CI["packages/evals/src/cli/runCi.ts<br>CI运行器"] & RUN_EVALS["packages/evals/src/cli/runEvals.js<br>评估运行器"] & RUN_TASK["packages/evals/src/cli/runTask.js<br>任务运行器"]
+    E --> TERMINAL_INT
+    TERMINAL_INT --> TERM_REG["src/integrations/terminal/TerminalRegistry.ts<br>终端注册表"] & TERM_PROC["src/integrations/terminal/TerminalProcess.ts<br>终端进程"] & SHELL_INT["src/integrations/terminal/ShellIntegrationManager.ts<br>Shell集成"] & BB
     Q -. 用户输入 .-> SS
     SS -. 转发消息 .-> S
     S -. API请求 .-> HH
@@ -36,28 +38,27 @@ flowchart TD
     S -. 选择工具 .-> Y
     Y -. 执行操作 .-> XX["文件系统/命令行"]
     XX -. 结果返回 .-> S
-    S -. 本地持久化 .-> LOCAL
-    CC -. 索引搜索 .-> YY
-    YY -. 搜索结果 .-> CC
-    DD -. 差异检测 .-> GITDIFF
-    GITDIFF -. 差异结果 .-> DD
-    Y -. 状态同步 .-> SHADOWGIT["👥 <b>Shadow Git系统</b><br>Shadow Git System"]
-    SHADOWGIT -. 虚拟状态 .-> Y
+    S -. 持久化 .-> OO
+    TERM_REG -. 进程管理 .-> TERM_PROC
+    TERM_PROC -. Shell集成 .-> SHELL_INT
      A:::entryPoint
+     CLI_ROOT:::cli
+     PKG_MGR:::cli
+     TERMINAL_INT:::cli
      G:::controller
-     TT:::controller
-     UU:::controller
-     L:::ui
+     TT:::core
+     UU:::core
+     S:::engine
+     VV:::core
+     WW:::tools
      SS:::controller
+     L:::ui
      M:::ui
+     Q:::ui
+     R:::ui
      N:::ui
      O:::ui
      P:::ui
-     Q:::ui
-     R:::ui
-     S:::engine
-     VV:::engine
-     WW:::engine
      Y:::tools
      Z:::tools
      AA:::tools
@@ -67,25 +68,6 @@ flowchart TD
      EE:::tools
      FF:::tools
      GG:::tools
-     GITDIFF:::gitSystem
-     DIFF1:::gitSystem
-     DIFF2:::gitSystem
-     DIFF3:::gitSystem
-     YY:::codebaseIndex
-     LAYER1:::codebaseIndex
-     LAYER2:::codebaseIndex
-     LAYER3:::codebaseIndex
-     ZZ:::codebaseIndex
-     AAA:::codebaseIndex
-     BBB:::codebaseIndex
-     CCC:::codebaseIndex
-     DDD:::codebaseIndex
-     EEE:::codebaseIndex
-     FFF:::codebaseIndex
-     GGG:::codebaseIndex
-     HHH:::codebaseIndex
-     III:::codebaseIndex
-     JJJ:::codebaseIndex
      HH:::api
      II:::api
      JJ:::api
@@ -93,22 +75,31 @@ flowchart TD
      LL:::api
      NN:::api
      OO:::persistence
-     LOCAL:::localPersistence
-     PP:::localPersistence
-     QQ:::localPersistence
-     RR:::localPersistence
-     CACHE:::localPersistence
-     FILES:::localPersistence
-     SHADOWGIT:::shadowSystem
-    classDef entryPoint fill:#e1f5fe,stroke:#01579b,stroke-width:3px,color:#000
-    classDef controller fill:#f3e5f5,stroke:#4a148c,stroke-width:3px,color:#000
-    classDef ui fill:#e8f5e8,stroke:#1b5e20,stroke-width:3px,color:#000
-    classDef engine fill:#fff3e0,stroke:#e65100,stroke-width:3px,color:#000
-    classDef tools fill:#fce4ec,stroke:#880e4f,stroke-width:3px,color:#000
-    classDef gitSystem fill:#fff3e0,stroke:#ff6f00,stroke-width:3px,color:#000
-    classDef shadowSystem fill:#f1f8e9,stroke:#558b2f,stroke-width:3px,color:#000
-    classDef codebaseIndex fill:#e3f2fd,stroke:#0d47a1,stroke-width:3px,color:#000
-    classDef api fill:#f1f8e9,stroke:#33691e,stroke-width:3px,color:#000
-    classDef persistence fill:#fff8e1,stroke:#f57f17,stroke-width:3px,color:#000
-    classDef localPersistence fill:#e8f5e8,stroke:#2e7d32,stroke-width:3px,color:#000
-    classDef cloudPersistence fill:#e3f2fd,stroke:#1565c0,stroke-width:3px,color:#000
+     PP:::persistence
+     QQ:::persistence
+     RR:::persistence
+     BUILD_SCRIPTS:::cli
+     EVALS_CLI:::cli
+     ROOT_PKG:::cli
+     PNPM_WS:::cli
+     TURBO_CFG:::cli
+     BOOTSTRAP:::cli
+     INSTALL_VSIX:::cli
+     UPDATE_CONTRIB:::cli
+     I18N_SCRIPTS:::cli
+     EVALS_ENTRY:::cli
+     RUN_CI:::cli
+     RUN_EVALS:::cli
+     RUN_TASK:::cli
+     TERM_REG:::cli
+     TERM_PROC:::cli
+     SHELL_INT:::cli
+    classDef entryPoint fill:#e1f5fe
+    classDef controller fill:#f3e5f5
+    classDef ui fill:#e8f5e8
+    classDef engine fill:#fff3e0
+    classDef tools fill:#fce4ec
+    classDef api fill:#f1f8e9
+    classDef persistence fill:#fff8e1
+    classDef core fill:#f0f4c3
+    classDef cli fill:#e8eaf6,stroke:#3f51b5,stroke-width:2px
