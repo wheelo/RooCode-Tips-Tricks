@@ -58,7 +58,7 @@ A validation tool that checks `.roomodes` files against Roo-Code specifications 
 
 [architecture.mmd](./architecture.mmd) 为项目整体架构图(mmd)
 
-## ![SVG](./architecture.svg) 为项目整体架构图(svg)
+## ![项目整体架构图](./architecture.svg) 
 
 
 ## Cheatsheets
