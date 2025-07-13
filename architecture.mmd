@@ -1,114 +1,162 @@
 ---
 config:
-  layout: elk
+  layout: fixed
+  theme: default
 ---
 flowchart TD
-    A["<b>Extension Entry</b><br>src/extension.ts"] --> B["创建ClineProvider"] & C["注册命令和代码操作<br>src/activate/registerCommands.ts<br>src/activate/registerCodeActions.ts"] & D["设置国际化"] & E["初始化终端注册表<br>src/integrations/terminal/TerminalRegistry.ts"] & F@{ label: "注册<span style=\"color:\">DiffViewProvider</span><br>src/integrations/editor/DiffViewProvider.ts" } & CLI_ROOT["<b>CLI System</b><br>命令行系统"] & PKG_MGR["<b>Package Manager</b><br>包管理器"] & TERMINAL_INT["<b>Terminal Integration</b><br>终端集成"] & GLOBAL_CONFIG["<b>Global Config</b><br>全局配置系统"]
-    B --> G["<b>ClineProvider</b><br><b>核心控制器</b><br>src/core/webview/ClineProvider.ts"]
-    G --> I["处理UI消息"] & J["维护Cline实例栈"] & K["协调任务执行<br>src/core/task/Task.ts#L124"] & TT["ContextProxy<br>src/core/context/ContextProxy.ts"] & UU["WorkspaceTracker<br>src/core/workspace/WorkspaceTracker.ts"]
-    J --> S["<b>Task</b><br>src/core/task/Task.ts"]
-    S --> T["任务生命周期管理<br>• 初始化状态<br>• 执行中状态<br>• 完成状态<br>• 错误状态"] & U["处理用户输入<br>src/core/webview/webviewMessageHandler.ts"] & V["发送API请求"] & W["调用工具"] & X["管理任务状态"] & VV["FileContextTracker<br>src/core/task/FileContextTracker.ts"] & WW["ToolRepetitionDetector<br>src/core/tools/ToolRepetitionDetector.ts"]
-    W --> Y["<b>Tools System</b><br>src/core/tools/"]
-    X --> STORAGE["<b>Storage System</b><br>存储系统"]
-    I --> SS["<b>webviewMessageHandler</b><br>src/core/webview/webviewMessageHandler.ts"]
-    G -. 管理webview视图 .-> L["Webview UI<br>webview-ui/src/App.tsx"]
-    L --> M["ChatView组件<br>webview-ui/src/components/ChatView/ChatView.tsx"]
-    M --> Q["ChatTextArea<br>webview-ui/src/components/ChatView/ChatTextArea.tsx"] & R["ChatRow<br>webview-ui/src/components/ChatView/ChatRow.tsx"] & N["HistoryView组件<br>webview-ui/src/components/HistoryView/HistoryView.tsx"]
-    N --> O["SettingsView组件<br>webview-ui/src/components/SettingsView/SettingsView.tsx"]
-    O --> P["MarketplaceView组件<br>webview-ui/src/components/MarketplaceView/MarketplaceView.tsx"]
-    Y --> Z["readFileTool<br>src/core/tools/readFileTool.ts"] & AA["writeToFileTool<br>src/core/tools/writeToFileTool.ts"] & BB["executeCommandTool<br>src/core/tools/executeCommandTool.ts"] & CC["codebaseSearchTool<br>src/core/tools/codebaseSearchTool.ts"] & DD["applyDiffTool<br>src/core/tools/applyDiffTool.ts"] & EE["insertContentTool<br>src/core/tools/insertContentTool.ts"] & FF["searchAndReplaceTool<br>src/core/tools/searchAndReplaceTool.ts"] & GG["listFilesTool<br>src/core/tools/listFilesTool.ts"]
-    STORAGE --> CHECKPOINTS["<b>Checkpoints</b><br>src/core/checkpoints<br>• 任务检查点<br>• 状态快照<br>• 回滚机制"] & TASK_STORAGE["<b>Task Storage</b><br>src/core/task-persistence/task/<br>• taskMessages.ts<br>• apiMessages.ts<br>• taskMetadata.ts"] & VSCODE_STORAGE["<b>VSCode Storage</b><br>VSCode存储系统"]
-    C --> CLI_ROOT & TERMINAL_INT & Y
-    V --> HH["API Handler<br>src/api/"]
-    HH --> II["ApiHandler接口<br>src/api/index.ts"] & JJ["API Providers<br>src/api/providers/"]
-    JJ --> KK["anthropic.ts<br>src/api/providers/anthropic.ts"] & LL["openai.ts<br>src/api/providers/openai.ts"] & NN["其他提供商<br>src/api/providers/"]
-    GLOBAL_CONFIG --> ROO_CONFIG["<b>.roo配置系统</b><br>.roo/rules/<br>• 代码规则定义<br>• 文档提取规则<br>• 集成测试规则<br>• 问题修复规则<br>• PR审查规则<br>• 翻译规则"] & GLOBAL_SETTINGS["<b>globalConfig</b><br>src/core/config/<br>• 用户偏好设置<br>• API配置<br>• 工作区设置<br>• 扩展配置"]
-    CLI_ROOT --> PKG_MGR & EVALS_CLI["<b>Evals CLI</b><br>评估命令行"] & TERMINAL_INT
-    PKG_MGR --> ROOT_PKG["package.json<br>根包配置"] & EVALS_CLI
-    EVALS_CLI --> EVALS_ENTRY["packages/evals/src/cli/index.ts<br>CLI入口"]
-    EVALS_ENTRY --> RUN_CI["packages/evals/src/cli/runCi.ts<br>CI运行器"] & RUN_EVALS["packages/evals/src/cli/runEvals.js<br>评估运行器"] & RUN_TASK["packages/evals/src/cli/runTask.js<br>任务运行器"]
-    E --> TERMINAL_INT
-    TERMINAL_INT --> TERM_REG["src/integrations/terminal/TerminalRegistry.ts<br>终端注册表"] & TERM_PROC["src/integrations/terminal/TerminalProcess.ts<br>终端进程"] & SHELL_INT["src/integrations/terminal/ShellIntegrationManager.ts<br>Shell集成"] & BB
-    Q -. 用户输入 .-> SS
-    SS -. 转发消息 .-> S
-    S -. API请求 .-> HH
-    HH -. 响应 .-> S
-    S -. 更新状态 .-> G
-    G -. UI更新 .-> M
-    S -. 选择工具 .-> Y
-    Y -. 执行操作 .-> XX["文件系统/命令行"]
-    XX -. 结果返回 .-> S
-    S -. 持久化 .-> STORAGE
-    STORAGE -. 检查点保存 .-> CHECKPOINTS
-    STORAGE -. 任务数据 .-> TASK_STORAGE
-    STORAGE -. VSCode存储 .-> VSCODE_STORAGE
-    VSCODE_STORAGE -. 全局状态 .-> GLOBAL_STATE["<b>VSCode Global State</b><br>"]
-    VSCODE_STORAGE -. 密钥存储 .-> SECRETS_STORAGE["<b>VSCode Secrets Storage</b><br>"]
-    TERM_REG -. 进程管理 .-> TERM_PROC
-    TERM_PROC -. Shell集成 .-> SHELL_INT
-    ROO_CONFIG -. 规则应用 .-> Y
-    GLOBAL_SETTINGS -. 配置读取 .-> G
-    F@{ shape: rect}
+    USER_INPUT["用户输入: Write me some code that finds prime numbers"] --> START_TASK["开始任务"]
+    AGENT_CORE["<b>Agent核心架构</b><br>• Model: 决策大脑<br>• Tools: 执行手段<br>• Instructions/Memory"] --> MODEL_LAYER["<b>Model Layer</b><br>模型决策层"] & TOOL_LAYER["<b>Tool Layer</b><br>工具执行层"] & INSTRUCTION_LAYER["<b>Instruction Layer</b><br>指令系统层"]
+    START_TASK --> RECURSIVE_ENGINE["<b>Recursive Execution Engine</b><br>递归执行引擎<br>• 自主工具调用循环<br>• 动态决策制定<br>• 任务完成判断"]
+    RECURSIVE_ENGINE ==> CHECK_POINT["<b>Check Point</b><br>检查点机制<br>src/core/checkpoints/<br>• 任务状态快照<br>• 回滚机制<br>• 进度保存"]
+    CHECK_POINT ==> LOAD_CONTEXT["<b>Load Context</b><br>上下文加载<br>src/core/Cline.ts#L850<br>• getEnvironmentDetails<br>• 环境感知<br>• 历史信息"]
+    LOAD_CONTEXT ==> API_REQUEST["<b>API Request</b><br>API请求处理<br>src/api/index.ts<br>• createMessage<br>• handleStream<br>• parseResponse"]
+    API_REQUEST ==> TOOL_USE["<b>Tool Use</b><br>工具使用决策<br>src/core/Cline.ts#L450<br>• 动态工具选择<br>• 执行策略优化<br>• 结果评估"]
+    TOOL_USE ==> COMPLETION_CHECK["<b>任务完成判断</b><br>• 目标达成评估<br>• 用户满意度<br>• 继续执行决策"]
+    COMPLETION_CHECK -. 未完成 .-> RECURSIVE_ENGINE
+    COMPLETION_CHECK -. 完成 .-> TASK_COMPLETE["任务完成"]
+    RECURSIVE_ENGINE --> TASK_LOOP["<b>任务循环引擎</b><br>src/core/Cline.ts#L620<br>• initiateTaskLoop<br>• recursivelyMakeClineRequests<br>• attemptApiRequest<br>• 自主决策循环"] & CONTEXT_MGR["<b>上下文管理</b><br>src/core/Cline.ts#L850<br>• getEnvironmentDetails<br>• loadContext<br>• 环境感知"] & TOOL_EXEC["<b>工具执行引擎</b><br>src/core/Cline.ts#L450<br>• 动态工具选择<br>• 执行策略优化<br>• 结果评估"] & MONITORING["<b>监控与调试</b><br>• 性能监控<br>• 日志系统<br>• 状态检查"] & ERROR_HANDLING["<b>错误处理机制</b><br>• 工具执行错误<br>• API错误<br>• 上下文错误"] & PERFORMANCE["<b>性能优化</b><br>• 流式处理<br>• 缓存策略<br>• 资源管理"]
+    MONITORING --> PERF_MONITOR["<b>性能监控</b><br>• Token使用统计<br>• 响应时间监控<br>• 资源使用追踪"] & LOG_SYSTEM["<b>日志系统</b><br>• API请求日志<br>• 工具执行日志<br>• 错误追踪"] & STATE_CHECK["<b>状态检查</b><br>• 连接状态<br>• 工具可用性<br>• 环境一致性"]
+    ERROR_HANDLING --> TOOL_ERROR["<b>工具执行错误</b><br>• 重试机制<br>• 用户确认<br>• 状态回滚"] & API_ERROR["<b>API错误</b><br>• 重连机制<br>• 缓存恢复<br>• 会话维护"] & CONTEXT_ERROR["<b>上下文错误</b><br>• 环境验证<br>• 状态恢复<br>• 用户通知"]
+    PERFORMANCE --> STREAMING["<b>流式处理</b><br>• API响应流式处理<br>• 工具执行异步化<br>• UI增量更新"] & CACHING["<b>缓存策略</b><br>• 对话历史缓存<br>• 工具结果缓存<br>• 环境信息缓存"] & RESOURCE_MGR["<b>资源管理</b><br>• 终端复用<br>• 文件句柄管理<br>• 内存优化"]
+    A["<b>Extension Entry</b><br>src/extension.ts"] --> B["创建ClineProvider"] & C["注册命令和代码操作<br>src/activate/registerCommands.ts<br>src/activate/registerCodeActions.ts"] & D["设置国际化"] & E["初始化终端注册表<br>src/integrations/terminal/TerminalRegistry.ts"] & F["注册DiffViewProvider<br>src/integrations/editor/DiffViewProvider.ts"] & GLOBAL_CONFIG["<b>全局配置系统</b><br>src/core/config/"] & EXTENSION_SYSTEM["<b>扩展机制</b><br>src/services/"] & CLI_ROOT["<b>CLI系统</b><br>命令行系统"]
+    GLOBAL_CONFIG --> ROO_CONFIG["<b>.roo配置系统</b><br>.roo/rules/<br>• 代码规则定义<br>• 文档提取规则<br>• 集成测试规则<br>• 问题修复规则<br>• PR审查规则<br>• 翻译规则"] & CORE_CONFIG["<b>核心配置</b><br>src/core/config/<br>• 用户偏好设置<br>• API配置<br>• 工作区设置<br>• 扩展配置"]
+    EXTENSION_SYSTEM --> MCP_EXT["<b>MCP扩展</b><br>src/services/mcp/<br>• 服务器管理<br>• 工具注册<br>• 资源访问"] & CUSTOM_INST["<b>自定义指令</b><br>src/core/prompts/<br>• 语言偏好<br>• 工作规则<br>• 特殊指令"]
+    CLI_ROOT --> PKG_MGR["<b>包管理器</b><br>package.json<br>turbo.json"] & EVALS_CLI["<b>评估CLI</b><br>packages/evals/src/cli/index.ts"]
+    EVALS_CLI --> RUN_CI["runCi.ts<br>packages/evals/src/cli/runCi.ts<br>CI运行器"] & RUN_EVALS["runEvals.js<br>packages/evals/src/cli/runEvals.js<br>评估运行器"] & RUN_TASK["runTask.js<br>packages/evals/src/cli/runTask.js<br>任务运行器"]
+    B ==> G["<b>ClineProvider</b><br><b>核心控制器</b><br>src/core/webview/ClineProvider.ts"]
+    G ==> CLINE_CORE["<b>Cline Core</b><br>src/core/Cline.ts<br>• startTask() L180<br>• recursivelyMakeClineRequests() L620<br>• loadContext() L850"]
+    G --> WEBVIEW_HANDLER["<b>Webview消息处理</b><br>src/core/webview/webviewMessageHandler.ts<br>• 消息路由<br>• 状态同步"] & WEBVIEW_UI["<b>Webview UI</b><br>webview-ui/src/App.tsx<br>• 由ClineProvider管理<br>• UI状态同步<br>• 用户交互处理"]
+    WEBVIEW_UI --> CHAT_VIEW["<b>ChatView</b><br>webview-ui/src/components/ChatView/ChatView.tsx"] & HISTORY_VIEW["<b>HistoryView</b><br>webview-ui/src/components/HistoryView/HistoryView.tsx"] & SETTINGS_VIEW["<b>SettingsView</b><br>webview-ui/src/components/SettingsView/SettingsView.tsx"] & MARKETPLACE_VIEW["<b>MarketplaceView</b><br>webview-ui/src/components/MarketplaceView/MarketplaceView.tsx"]
+    CHAT_VIEW --> CHAT_TEXTAREA["ChatTextArea<br>webview-ui/src/components/ChatView/ChatTextArea.tsx"] & CHAT_ROW["ChatRow<br>webview-ui/src/components/ChatView/ChatRow.tsx"]
+    CLINE_CORE ==> RECURSIVE_ENGINE
+    CLINE_CORE --> MENTIONS["<b>@提及系统</b><br>src/core/mentions/<br>• 提及解析<br>• 上下文关联"] & PERSISTENCE["<b>任务持久化</b><br>src/core/task-persistence/<br>• taskMessages.ts<br>• apiMessages.ts<br>• taskMetadata.ts"] & MEMORY_BANK["<b>Memory Bank</b><br>src/core/memory/<br>• 持久化记忆系统<br>• 上下文恢复<br>• 知识积累"] & CHECKPOINTS["<b>CheckPoints</b><br>src/core/checkpoints/<br>• 任务检查点<br>• 状态快照<br>• 回滚机制"]
+    MODEL_LAYER --> MODEL_PROVIDERS["<b>模型提供商</b><br>src/api/providers/<br>• Anthropic Claude<br>• OpenAI GPT<br>• Google Gemini<br>• DeepSeek<br>• 其他模型"] & MODEL_SELECTION["<b>模型选择策略</b><br>src/core/config/modelConfig.ts<br>• 推理模型 (o1, R1)<br>• 编码模型 (Claude 3.5)<br>• 成本效益模型"] & CONTEXT_WINDOW["<b>上下文窗口管理</b><br>src/core/context/<br>• 动态上下文扩展<br>• 对话历史管理<br>• 环境信息注入"]
+    TOOL_LAYER --> CLINE_TOOLS["<b>Tools</b>"]
+    CLINE_TOOLS --> FILE_OPS["<b>文件操作工具</b><br>• execute_command<br>• read_file<br>• write_to_file<br>• replace_in_file<br>• list_files"] & SEARCH_OPS["<b>搜索工具</b><br>• search_files<br>• codebaseSearchTool<br>• searchAndReplaceTool"] & BROWSER_OPS["<b>浏览器工具</b><br>• browser_action<br>• navigate<br>• click<br>• type"] & MCP_OPS["<b>MCP工具</b><br>• use_mcp_tool<br>• access_mcp_resource<br>• load_mcp_documentation"] & AGENT_OPS["<b>Agent操作工具</b><br>• ask_followup_question<br>• plan_mode_respond<br>• attempt_completion<br>• new_task<br>• condense<br>• report_bug<br>• new_rule"]
+    INSTRUCTION_LAYER --> SYSTEM_PROMPT["<b>系统提示词</b><br>src/core/prompts/system.ts#L8<br>• SYSTEM_PROMPT函数<br>• 工具使用说明<br>• XML格式规范<br>• 错误处理规则"] & CUSTOM_RULES["<b>自定义规则系统</b><br>.roo/rules/<br>• 代码规则定义<br>• 文档提取规则<br>• 集成测试规则<br>• 问题修复规则<br>• PR审查规则<br>• 翻译规则"] & PLAN_ACT_MODE["<b>Plan &amp; Act模式</b><br>src/core/modes/<br>• Plan Mode: 策略制定<br>• Act Mode: 执行实施<br>• 上下文前置加载"]
+    TOOL_EXEC --> CORE_TOOLS["<b>核心工具系统</b><br>src/core/tools/"] & MCP_TOOLS["<b>MCP工具系统</b><br>src/services/mcp/McpHub.ts#L48<br>• callTool<br>• readResource<br>• getServers"] & BROWSER_TOOLS["<b>浏览器工具</b><br>src/services/browser/BrowserSession.ts<br>• launch<br>• navigate<br>• click<br>• type"]
+    CORE_TOOLS --> FILE_TOOLS["<b>文件操作工具</b><br>src/core/tools/file/<br>• readFileTool<br>• writeToFileTool<br>• applyDiffTool<br>• insertContentTool"] & SEARCH_TOOLS["<b>搜索工具</b><br>src/core/tools/search/<br>• codebaseSearchTool<br>• searchAndReplaceTool<br>• listFilesTool"] & CMD_TOOLS["<b>命令工具</b><br>src/core/tools/command/<br>• executeCommandTool"]
+    FILE_TOOLS --> DIFF_SYSTEM["<b>差异处理系统</b><br>src/core/diff/DiffStrategy.ts<br>• 代码差异比较策略<br>• 冲突解决<br>• 变更应用"]
+    SEARCH_TOOLS --> GLOB_SERVICE["<b>文件搜索服务</b><br>src/services/glob/<br>• 文件模式匹配<br>• 目录遍历"] & RIPGREP_SERVICE["<b>代码搜索服务</b><br>src/services/ripgrep/<br>• 正则表达式搜索<br>• 内容匹配"]
+    TASK_LOOP --> API_HANDLER["<b>API处理器</b><br>src/api/index.ts<br>• createMessage<br>• handleStream<br>• parseResponse"]
+    API_HANDLER --> API_PROVIDERS["<b>API提供商</b><br>src/api/providers/"] & API_TRANSFORM["<b>响应转换</b><br>src/api/transform/<br>• 响应处理<br>• 格式转换"]
+    API_PROVIDERS --> ANTHROPIC["anthropic.ts<br>src/api/providers/anthropic.ts"] & OPENAI["openai.ts<br>src/api/providers/openai.ts"] & OTHER_PROVIDERS["其他提供商<br>src/api/providers/"]
+    E --> TERMINAL_SYSTEM["<b>终端集成系统</b><br>src/integrations/terminal/"]
+    TERMINAL_SYSTEM --> TERMINAL_REG["TerminalRegistry.ts<br>src/integrations/terminal/TerminalRegistry.ts<br>• 终端注册表"] & TERMINAL_PROC["TerminalProcess.ts<br>src/integrations/terminal/TerminalProcess.ts<br>• 终端进程管理"] & SHELL_INT["ShellIntegrationManager.ts<br>src/integrations/terminal/ShellIntegrationManager.ts<br>• Shell集成"]
+    CHAT_TEXTAREA -. 用户输入 .-> WEBVIEW_HANDLER
+    TASK_LOOP -. 模型决策 .-> MODEL_LAYER
+    MODEL_LAYER -. 选择工具 .-> TOOL_LAYER
+    TOOL_LAYER -. 执行操作 .-> FILE_SYSTEM["文件系统/命令行"]
+    FILE_SYSTEM -. 结果返回 .-> RECURSIVE_ENGINE
+    G -. UI更新 .-> WEBVIEW_UI
+    WEBVIEW_UI -. 界面刷新 .-> CHAT_VIEW
+    TASK_LOOP -. 持久化 .-> PERSISTENCE
+    INSTRUCTION_LAYER -. 指导行为 .-> RECURSIVE_ENGINE
+    ROO_CONFIG -. 规则应用 .-> TOOL_EXEC
+    CORE_CONFIG -. 配置读取 .-> G
+    CHECKPOINTS -. 检查点管理 .-> TASK_LOOP
+     AGENT_CORE:::agentCore
+     MODEL_LAYER:::modelLayer
+     TOOL_LAYER:::toolLayer
+     INSTRUCTION_LAYER:::instructionLayer
+     RECURSIVE_ENGINE:::recursiveEngine
+     CHECK_POINT:::checkPoint
+     LOAD_CONTEXT:::loadContext
+     API_REQUEST:::apiRequest
+     TOOL_USE:::toolUse
+     COMPLETION_CHECK:::completionCheck
+     TASK_COMPLETE:::taskComplete
+     TASK_LOOP:::engine
+     CONTEXT_MGR:::engine
+     TOOL_EXEC:::engine
+     MONITORING:::system
+     ERROR_HANDLING:::system
+     PERFORMANCE:::system
+     PERF_MONITOR:::system
+     LOG_SYSTEM:::system
+     STATE_CHECK:::system
+     TOOL_ERROR:::system
+     API_ERROR:::system
+     CONTEXT_ERROR:::system
+     STREAMING:::system
+     CACHING:::system
+     RESOURCE_MGR:::system
      A:::entryPoint
-     CLI_ROOT:::cli
-     PKG_MGR:::cli
-     TERMINAL_INT:::cli
      GLOBAL_CONFIG:::config
-     G:::coreController
-     TT:::core
-     UU:::core
-     S:::engine
-     VV:::core
-     WW:::tools
-     Y:::tools
-     STORAGE:::storage
-     SS:::controller
-     L:::ui
-     M:::ui
-     Q:::ui
-     R:::ui
-     N:::ui
-     O:::ui
-     P:::ui
-     Z:::tools
-     AA:::tools
-     BB:::tools
-     CC:::tools
-     DD:::tools
-     EE:::tools
-     FF:::tools
-     GG:::tools
-     CHECKPOINTS:::storage
-     TASK_STORAGE:::storage
-     VSCODE_STORAGE:::vscodeStorage
-     HH:::api
-     II:::api
-     JJ:::api
-     KK:::api
-     LL:::api
-     NN:::api
+     EXTENSION_SYSTEM:::system
+     CLI_ROOT:::cli
      ROO_CONFIG:::config
-     GLOBAL_SETTINGS:::config
+     CORE_CONFIG:::config
+     MCP_EXT:::system
+     CUSTOM_INST:::system
+     PKG_MGR:::cli
      EVALS_CLI:::cli
-     ROOT_PKG:::cli
-     EVALS_ENTRY:::cli
      RUN_CI:::cli
      RUN_EVALS:::cli
      RUN_TASK:::cli
-     TERM_REG:::cli
-     TERM_PROC:::cli
+     G:::coreController
+     CLINE_CORE:::coreController
+     WEBVIEW_HANDLER:::ui
+     WEBVIEW_UI:::ui
+     CHAT_VIEW:::ui
+     HISTORY_VIEW:::ui
+     SETTINGS_VIEW:::ui
+     MARKETPLACE_VIEW:::ui
+     CHAT_TEXTAREA:::ui
+     CHAT_ROW:::ui
+     MENTIONS:::engine
+     PERSISTENCE:::persistence
+     MEMORY_BANK:::persistence
+     CHECKPOINTS:::persistence
+     MODEL_PROVIDERS:::modelLayer
+     MODEL_SELECTION:::modelLayer
+     CONTEXT_WINDOW:::modelLayer
+     CLINE_TOOLS:::tools
+     FILE_OPS:::tools
+     SEARCH_OPS:::tools
+     BROWSER_OPS:::tools
+     MCP_OPS:::tools
+     AGENT_OPS:::tools
+     SYSTEM_PROMPT:::engine
+     CUSTOM_RULES:::instructionLayer
+     PLAN_ACT_MODE:::instructionLayer
+     CORE_TOOLS:::tools
+     MCP_TOOLS:::tools
+     BROWSER_TOOLS:::tools
+     FILE_TOOLS:::tools
+     SEARCH_TOOLS:::tools
+     CMD_TOOLS:::tools
+     DIFF_SYSTEM:::tools
+     GLOB_SERVICE:::tools
+     RIPGREP_SERVICE:::tools
+     API_HANDLER:::api
+     API_PROVIDERS:::api
+     API_TRANSFORM:::api
+     ANTHROPIC:::api
+     OPENAI:::api
+     OTHER_PROVIDERS:::api
+     TERMINAL_SYSTEM:::cli
+     TERMINAL_REG:::cli
+     TERMINAL_PROC:::cli
      SHELL_INT:::cli
-     GLOBAL_STATE:::vscodeStorage
-     SECRETS_STORAGE:::vscodeStorage
+    classDef agentCore fill:#ff6b6b,stroke:#d63031,stroke-width:4px
+    classDef recursiveEngine fill:#fd79a8,stroke:#e84393,stroke-width:4px
+    classDef checkPoint fill:#74b9ff,stroke:#0984e3,stroke-width:3px
+    classDef loadContext fill:#55a3ff,stroke:#2d3436,stroke-width:3px
+    classDef apiRequest fill:#00b894,stroke:#00a085,stroke-width:3px
+    classDef toolUse fill:#fdcb6e,stroke:#e17055,stroke-width:3px
+    classDef completionCheck fill:#a29bfe,stroke:#6c5ce7,stroke-width:3px
+    classDef taskComplete fill:#00cec9,stroke:#00b894,stroke-width:3px
     classDef entryPoint fill:#e1f5fe
     classDef coreController fill:#ffeb3b,stroke:#f57f17,stroke-width:3px
-    classDef controller fill:#f3e5f5
-    classDef ui fill:#e8f5e8
-    classDef engine fill:#fff3e0
-    classDef tools fill:#fce4ec
-    classDef api fill:#f1f8e9
-    classDef storage fill:#fff8e1,stroke:#ff8f00,stroke-width:2px
-    classDef vscodeStorage fill:#fce4ec,stroke:#e91e63,stroke-width:3px
-    classDef core fill:#f0f4c3
+    classDef engine fill:#fff3e0,stroke:#f57c00,stroke-width:2px
+    classDef tools fill:#fce4ec,stroke:#c2185b,stroke-width:2px
+    classDef api fill:#f1f8e9,stroke:#388e3c,stroke-width:2px
+    classDef ui fill:#e8f5e8,stroke:#2e7d32,stroke-width:2px
+    classDef persistence fill:#fff8e1,stroke:#f9a825,stroke-width:2px
+    classDef config fill:#e0f2f1,stroke:#00695c,stroke-width:2px
     classDef cli fill:#e8eaf6,stroke:#3f51b5,stroke-width:2px
-    classDef config fill:#e0f2f1,stroke:#00695c,stroke-width:2p
+    classDef system fill:#fafafa,stroke:#616161,stroke-width:2px
+    classDef modelLayer fill:#e3f2fd,stroke:#1976d2,stroke-width:2px
+    classDef toolLayer fill:#f3e5f5,stroke:#7b1fa2,stroke-width:2px
+    classDef instructionLayer fill:#e8f5e8,stroke:#388e3c,stroke-width:2px
