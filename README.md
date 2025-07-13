@@ -5,6 +5,31 @@ A collection of files designed to supercharge Roo experience and maximize produc
 ## [Roo Code Documentation](personal_roo_docs/)
 A comprehensive collection of documentation resources for Roo Code, organized by technical depth and audience:
 
+## 技术文章
+
+* 整体流程：
+1. https://www.youtube.com/watch?v=LG7Sz-VfFdU
+Recursive Engine -> check Point -> load context -> API Ruquest -> Tool Use -> Recursive Engine
+2. https://cline.bot/blog/what-makes-a-coding-agent
+
+* checkPoint:
+- https://cline.bot/blog/how-i-learned-to-stop-course-correcting-and-start-using-message-checkpoints
+- https://github.com/Michaelzag/RooCode-Tips-Tricks/blob/main/personal_roo_docs/technical/checkpoint-system.md
+
+* context window:
+1. https://github.com/Michaelzag/RooCode-Tips-Tricks/blob/main/personal_roo_docs/technical/managing-context-window.md
+
+2. https://cline.bot/blog/clines-context-window-explained-maximize-performance-minimize-cost
+
+3. https://talkol.medium.com/performance-limitations-of-react-native-and-how-to-overcome-them-947630d7f440
+
+* 插件
+1. https://cline.bot/blog/calling-all-developers-how-to-build-mcp-plugins-with-cline
+
+2. https://aaaaash.notion.site/9a6fbe05da024eaeacc5a46748198223
+
+
+
 ## Architechure
 
 The [extension-architecture.mmd](./extension-architecture.mmd) file contains a Mermaid diagram showing the high-level architecture of the Cline extension. The diagram illustrates:
