@@ -5,7 +5,7 @@ A collection of files designed to supercharge Roo experience and maximize produc
 ## [Roo Code Documentation](personal_roo_docs/)
 A comprehensive collection of documentation resources for Roo Code, organized by technical depth and audience:
 
-## 技术文章
+## Tech References
 
 * 整体流程：
 1. https://www.youtube.com/watch?v=LG7Sz-VfFdU
