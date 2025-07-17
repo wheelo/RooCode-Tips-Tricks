@@ -11,6 +11,7 @@ A comprehensive collection of documentation resources for Roo Code, organized by
 1. https://www.youtube.com/watch?v=LG7Sz-VfFdU
 Recursive Engine -> check Point -> load context -> API Ruquest -> Tool Use -> Recursive Engine
 2. https://cline.bot/blog/what-makes-a-coding-agent
+3. overview: https://github.com/cline/cline/blob/main/.clinerules/cline-overview.md
 
 * checkPoint:
 - https://cline.bot/blog/how-i-learned-to-stop-course-correcting-and-start-using-message-checkpoints
