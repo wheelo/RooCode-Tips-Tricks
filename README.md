@@ -33,7 +33,7 @@ Recursive Engine -> check Point -> load context -> API Ruquest -> Tool Use -> Re
 
 ## Architechure
 
-The [extension-architecture.mmd](./extension-architecture.mmd) file contains a Mermaid diagram showing the high-level architecture of the Cline extension. The diagram illustrates:
+The [architecture.mmd](./architecture.mmd) file contains a Mermaid diagram showing the high-level architecture of the Cline extension. The diagram illustrates:
 
 1. **Core Extension**
    - Extension entry point and main classes
